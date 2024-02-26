@@ -1,0 +1,50 @@
+.delete-admin-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .delete-admin-container h3 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .delete-admin-container label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .delete-admin-container input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .delete-admin-container button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    font-size: 16px;
+    background-color:  #0c46e6; 
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .delete-admin-container button:hover {
+    background-color: #0435b9;
+  }
+  
+  .delete-admin-container .message {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 16px;
+    color: #555;
+  }
+  
