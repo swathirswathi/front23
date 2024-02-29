@@ -9,6 +9,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { jwtDecode } from "jwt-decode";
 import Profile from "../../Components/Cars/Profile";
+import Reservation from "../Reservations/Reservation";
 import { GoogleLogin } from "@react-oauth/google";
 import UpdateEmail from "../AdminDetails/UpdateEmailAdmin";
 
@@ -37,6 +38,7 @@ function Login(props) {
         role: "user",
         token: "string",
       });
+      localStorage.setItem('token', result.data.token);
       <Profile data={{ username: username, password: password }} />;
       setToken(result.data.token);
       toast.success("Login Success");
@@ -63,7 +65,10 @@ function Login(props) {
       setToken(token);
       setAdminId(adminId);
 
+      localStorage.setItem('token', result.data.token);
+
       <Profile data={{ username: username, password: password }} />;
+      <Reservation data={{ username: username, password: password }} />;
       
       setToken(result.data.token);
       toast.success("Login Success");
@@ -71,7 +76,7 @@ function Login(props) {
       await new Promise((resolve) => setTimeout(resolve, 2000));
       navigate("/adminDashboard", { state: { username, token } });
     } catch (err) {
-      alert("Invalid Username or Password");
+      alert("Invalid Username or Password / User already Exist");
       toast.error(err);
     }
   }

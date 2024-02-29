@@ -1,20 +1,14 @@
 import React ,{useState} from 'react';
 import { Link } from 'react-router-dom';
 import MainNav from "../../Components/MainNav/mainNav";
-import GetAllCar from './GetAllCar';
-import GetCarById from "./GetCarById";
-import GetAvailableCar from "./GetAvailableCar";
-import DeleteCar from "./DeleteCar";
-import AddCar from "./AddCar";
-import UpdateDailyRate from "./UpdateDailyRate";
-import UpdateAvailability from "./UpdateAvailability";
-import "./CarDetails.css";
+import GetAllReservation from './GetAllReservation';
+import "../../Components/AdminDetails/AdminDetails.css";
 
 
-function AdminDetailsPage () {
+function UserDetails () {
     const [selectedButton, setSelectedButton] = useState(null);
 
-  const buttons = [ 'Get All Car', 'Get Car By Id', 'Get Available Car', 'Delete Car','AddCar','UpdateCarDailyRate', 'UpdateAvailability','Back'];
+  const buttons = [ 'Get All Reservation', 'Back'];
 
   const handleButtonClick = (index) => {
     setSelectedButton(index);
@@ -23,20 +17,8 @@ function AdminDetailsPage () {
   const renderDetails = () => {
     switch (selectedButton) {
         case 0:
-          return <GetAllCar />;
+          return <GetAllReservation />;
         case 1:
-          return <GetCarById/>;
-        case 2:
-          return <GetAvailableCar/>;
-        case 3:
-          return <DeleteCar/>;
-        case 4:
-          return <AddCar/>;
-        case 5:
-          return <UpdateDailyRate/>;
-        case 6:
-          return <UpdateAvailability/>;
-        case 7:
           return <Link to="/adminDashboard">Back to Admin Dashboard</Link>;
         default:
           return null;
@@ -66,4 +48,4 @@ function AdminDetailsPage () {
   
 };
 
-export default AdminDetailsPage;
+export default UserDetails;

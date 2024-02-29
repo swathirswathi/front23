@@ -4,19 +4,52 @@ import card from "../../Images/credit-card.png";
 import wallet from "../../Images/wallet.png";
 import upi from "../../Images/upi.png";
 import "./Payment.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import gpay from "../../Images/Gpay.png";
 import phonepe from "../../Images/PhonePe.png";
 import qrcode from "../../Images/QRcode.jpg";
 import { useNavigate,useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import axios from "axios";
 
 function Payment() {
   const [selectedDiv, setSelectedDiv] = useState(null);
   const location = useLocation();
+  const navigate = useNavigate();
   const res = location.state;
-  console.log(location);
   const changeColor = (index) => {
     setSelectedDiv(index);
+  };
+  
+  const currentDate = new Date();
+  const formattedDate = currentDate.toISOString().slice(0, 10); 
+
+  const AddPayment = async () => {
+    try {
+      if (!location.state || !location.state.reservation) {
+        alert("Reservation data is missing.");
+        return;
+      }
+      const reservation = location.state.reservation;
+      const res = location.state.res;
+      console.log(res,formattedDate,reservation.reservationId,reservation.userId,reservation.carId );
+      await axios.post("http://localhost:5260/api/Payment/user/payment/make", {
+        paymentMethod: "UPI",
+        paymentAmount: res + 99 + 99,
+        paymentStatus: "Paid",
+        transactionId: 108000 + (res + 99 + 99) + 1,
+        transactionDate: formattedDate,
+        reservationId: reservation.reservationId,
+        userId: reservation.userId, 
+        carId: reservation.carId
+      });
+      alert("Payment success");  
+      navigate("/dashBoard");
+    } catch (err) {
+      alert("Payment failed");
+      console.error("Error making payment:", err);
+    }
   };
 
   return (
@@ -199,7 +232,7 @@ function Payment() {
           }}
         >
           <div style={{ marginLeft: "20px", marginTop: "20px", fontWeight: "500" }}>Select UPI App</div>
-          <div style={{ marginLeft: "30px", fontSize: "small", opacity: "0.7" }}>Amount : {res.res}</div>
+          <div style={{ marginLeft: "30px", fontSize: "small", opacity: "0.7" }}> </div>
           <div style={{ marginLeft: "20px", marginTop: "20px", fontWeight: "500" }}>Preferred Payment Options</div>
           <div style={{ display: "flex", flexWrap: "wrap", position: "relative", top: "20px" }} className={selectedDiv === 4 ? "box red" : "box"}
             onClick={() => changeColor(4)}>
@@ -219,6 +252,15 @@ function Payment() {
             <img style={{ height: "30px", marginTop: "9px", marginLeft: "23px" }} src={phonepe} alt="img" />
             <p style={{ marginLeft: "77px", marginTop: "10px", fontSize: "medium" }}>PhonePe</p>
           </div>
+
+
+
+        <Link>
+          <Button variant="primary" style={{ml:"5px"}} onClick={AddPayment}> Pay </Button>
+        </Link>
+
+
+
         </Card>
         <Card style={{ width: "20rem", height: "18rem", top: "200px", marginLeft: "200px", borderTopLeftRadius: "0", borderBottomLeftRadius: "0" }}>
           <div style={{textAlign:"center"}}>
@@ -226,7 +268,6 @@ function Payment() {
             <img style={{ height: "220px", width: "240px" }} src={qrcode} alt="img" />
           </div>
         </Card>
-        
       </div>
     </>
   );

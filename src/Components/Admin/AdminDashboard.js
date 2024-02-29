@@ -28,6 +28,7 @@ function AdminDash() {
       setUserData(result.data);
     } catch (err) {
       console.log(err);
+      toast.error("Failed to fetch reservation data.");
     }
   }
 

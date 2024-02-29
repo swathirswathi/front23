@@ -38,8 +38,11 @@ function AdminRegister() {
       });
       
       toast.success("Successfully registered");
+      setLoading(true);
+      await new Promise((resolve) => setTimeout(resolve, 2000));
       navigate("/admin");
     } catch (err) {
+      alert("Invalid username or password/Admin already Exist")
       toast.error(err);
     }
   }

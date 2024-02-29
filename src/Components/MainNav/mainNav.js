@@ -8,7 +8,7 @@ function NavScrollExample() {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container fluid className="navcolor">
-        <Navbar.Brand href="/Dashboard">
+        <Navbar.Brand href="/dashboard">
           <img className="img" src={img} alt="img" />
         </Navbar.Brand>
 

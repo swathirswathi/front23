@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function GetAdminById() {
     var [admin, setAdmins] = useState({
@@ -17,19 +18,23 @@ function GetAdminById() {
         setAdminIdInput(e.target.value);
     };
 
- var fetchAdminById = () => {
+    const fetchAdminById = () => {
+        const token = localStorage.getItem('token');
         const id = adminIdInput.trim();
-        if(id){
-        fetch(`http://localhost:5260/api/Admin/admin/admins/${id}`)
-            .then(res => res.json()) //converting to json//success
-            .then(res => {
-                setAdmins(res);
-            }, [])
-            .catch(err => console.log(err));//error
-        }else{
+        if (id) {
+            axios.get(`http://localhost:5260/api/Admin/admin/admins/${id}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then(res => {
+                    setAdmins(res.data); // Set admins with res.data, not res
+                })
+                .catch(err => console.log(err)); //error
+        } else {
             console.error("Please enter a valid admin ID");
         }
-    }
+    };
 
     return (
         <div className='all-div'>

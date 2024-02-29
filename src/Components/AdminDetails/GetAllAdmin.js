@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from "axios";
 
 function GetAllAdmin() {
     var [admins, setAdmins] = useState([{
@@ -12,13 +13,29 @@ function GetAllAdmin() {
     }])
 
     useEffect(() => {
-        fetch("http://localhost:5260/api/Admin/admin/GetAllAdmin")
-            .then(res => res.json()) //converting to json//success
-            .then(res => {
-                setAdmins(res);
-            }, [])
-            .catch(err => console.log(err));//error
-    })
+        const fetchAdmins = async () => {
+            try { 
+                const token = localStorage.getItem('token');
+                const response = await axios.get(
+                    "http://localhost:5260/api/Admin/admin/GetAllAdmin",
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
+                );
+                setAdmins(response.data);
+         }catch (error) {
+                console.error('Error fetching admins:', error);
+            }
+        };
+        fetchAdmins();
+    }, []); 
+
+    const checkIfAdmin = () => {
+        const role = localStorage.getItem('role');
+        return role === 'admin';
+    };
 
     return (
         <div className='all-div'>

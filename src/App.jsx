@@ -16,6 +16,7 @@ import AdminDashboard from "./Components/Admin/AdminDashboard.js";
 import AdminDetails from "./Components/AdminDetails/AdminDetails.js";
 import CarDetailsPage from "./Components/CarDetailsPage/CarDetailsPage.js";
 import UserDetails from "./Components/UserDetails/UserDetails.js";
+import ReservationDetails from "./Components/ReservationDetails/ReservationDetails.js";
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
         <Route path="/forgot_password" element={<Forgot forgotpd={true}/>}/>
         <Route path="/register" element={<Register newuser={true}/>}/>
         <Route path="admin" element = {<Login isadmin={true}/>}/>
-        <Route path="/Dashboard" element = {<Dashboard />}/>
+        <Route path="/dashboard" element = {<Dashboard />}/>
         <Route path="/profile" element = {<Profile/>}/>
         <Route path="/reservation" element={<Reservation/>}/>
         <Route path="/payment" element={<Payment/>}/>
@@ -37,6 +38,7 @@ function App() {
         <Route path="/adminDetails" element={<AdminDetails />} />
         <Route path="/carDetailsPage" element={<CarDetailsPage />} />
         <Route path="/userDetails" element={<UserDetails />} />
+        <Route path="/reservationDetails" element={<ReservationDetails />} />
       </Routes>
   );
 }

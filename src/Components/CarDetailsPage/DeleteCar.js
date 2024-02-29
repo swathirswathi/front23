@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import "../../Components/AdminDetails/DeleteAdmin.css";
+import axios from "axios";
 
 function DeleteCar() {
     const [adminIdInput, setAdminIdInput] = useState('');
@@ -12,11 +13,14 @@ function DeleteCar() {
     const handleDeleteAdmin = () => {
         const id = adminIdInput.trim();
         if (id) {
-            fetch(`http://localhost:5260/api/Car/admin/cars/${id}`, {
-                method: 'DELETE'
+            const token = localStorage.getItem('token');
+            axios.delete(`http://localhost:5260/api/Car/admin/cars/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             })
             .then(response => {
-                if (response.ok) {
+                if (response.status === 200) {
                     setMessage('Car deleted successfully.');
                     setAdminIdInput('');
                 } else {
@@ -24,7 +28,7 @@ function DeleteCar() {
                 }
             })
             .catch(error => {
-                console.error('Error deleting admin:', error);
+                console.error('Error deleting car:', error);
                 setMessage('An error occurred. Please try again later.');
             });
         } else {

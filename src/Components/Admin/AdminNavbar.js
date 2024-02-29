@@ -1,13 +1,10 @@
-import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import img from "../../Images/car-logo.jpg";
 import profile from "../../Images/profile-logo.png";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./Admin.css";
-import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import Sidebar from "../../Components/Cars/Sidebar";
 import { useState } from "react";
@@ -64,6 +61,13 @@ function AdminNavbar(props) {
               href="/userDetails"
             >
               User
+            </Nav.Link>
+           
+            <Nav.Link
+              style={{color: "black",fontFamily:"-apple-system,Helvetica Neue, Arial, sans-serif,Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol",}}
+              href="/reservationDetails"
+            >
+              Reservation
             </Nav.Link>
 
           </Nav>

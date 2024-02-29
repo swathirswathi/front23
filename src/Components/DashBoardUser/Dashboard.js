@@ -19,9 +19,10 @@ function Dashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (token) {
     (async () => await GetCarDetails())();
+    }
   }, []);
-
   async function GetCarDetails() {
     try {
       const result = await axios.get(
@@ -39,7 +40,7 @@ function Dashboard() {
   }
 
   const pass = () => {
-    navigate("/reservation", { state: { data: carData } });
+    navigate("/reservation", { state: { data: carData , username: token.username} });
   };
   return (
     <>
@@ -83,7 +84,7 @@ function Dashboard() {
                               "-apple-system,Helvetica Neue, Arial, sans-serif,Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol",
                           }}
                         >
-                          {Data.specification?.slice(0,26)}
+                          {Data.specification}
                         </p>
                         <p
                           style={{
@@ -101,7 +102,11 @@ function Dashboard() {
                       to={{
                         pathname: "/reservation",
                       }}
-                      state={Data}
+                     state={{
+                        Data: Data,
+                        username: token.username,
+                        token: token.token,
+                      }}
                     >
                       <Button variant="primary" >
                         Rent

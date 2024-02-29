@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import axios from "axios";
 
 function GetAvailableCar() {
     var [cars, setCars] = useState([{
@@ -14,13 +14,19 @@ function GetAvailableCar() {
     }])
 
     useEffect(() => {
-        fetch("http://localhost:5260/api/Car/admin/Cars/Availability")
-            .then(res => res.json()) //converting to json//success
-            .then(res => {
-                setCars(res);
-            }, [])
-            .catch(err => console.log(err));//error
-    })
+        const token = localStorage.getItem('token');
+        axios.get("http://localhost:5260/api/Car/admin/Cars/Availability", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        .then(response => {
+            setCars(response.data);
+        })
+        .catch(error => {
+            console.error('Error fetching car availability:', error);
+        });
+    }, []);
 
     return (
         <div className='all-div'>

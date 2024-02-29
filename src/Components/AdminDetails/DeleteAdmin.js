@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import "./DeleteAdmin.css";
+import axios from 'axios';
 
 function DeleteAdmin() {
     const [adminIdInput, setAdminIdInput] = useState('');
@@ -10,27 +11,26 @@ function DeleteAdmin() {
     };
 
     const handleDeleteAdmin = () => {
+        const token = localStorage.getItem('token');
         const id = adminIdInput.trim();
         if (id) {
-            fetch(`http://localhost:5260/api/Admin/admin/admins/del/${id}`, {
-                method: 'DELETE'
-            })
-            .then(response => {
-                if (response.ok) {
-                    setMessage('Admin deleted successfully.');
-                    setAdminIdInput('');
-                } else {
-                    setMessage('Failed to delete admin. Please try again.');
-                }
-            })
-            .catch(error => {
-                console.error('Error deleting admin:', error);
-                setMessage('An error occurred. Please try again later.');
-            });
-        } else {
-            setMessage('Please enter a valid admin ID.');
-        }
-    };
+            axios.delete(`http://localhost:5260/api/Admin/admin/admins/del/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        .then(() => {
+            setMessage('Admin deleted successfully.');
+            setAdminIdInput('');
+        })
+        .catch(error => {
+            console.error('Error deleting admin:', error);
+            setMessage('Failed to delete admin. Please try again.');
+        });
+    } else {
+        setMessage('Please enter a valid admin ID.');
+    }
+};
 
     return (
         <div className="delete-admin-container">

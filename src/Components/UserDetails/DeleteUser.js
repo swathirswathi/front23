@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import "../../Components/AdminDetails/DeleteAdmin.css";
+import axios from "axios";
 
 function DeleteUser() {
     const [adminIdInput, setAdminIdInput] = useState('');
@@ -12,12 +13,15 @@ function DeleteUser() {
     const handleDeleteAdmin = () => {
         const id = adminIdInput.trim();
         if (id) {
-            fetch(`http://localhost:5260/api/User/admin/${id}`, {
-                method: 'DELETE'
+            const token = localStorage.getItem('token');
+            axios.delete(`http://localhost:5260/api/User/admin/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             })
             .then(response => {
-                if (response.ok) {
-                    setMessage('User  deleted successfully.');
+                if (response.status === 200) {
+                    setMessage('User deleted successfully.');
                     setAdminIdInput('');
                 } else {
                     setMessage('Failed to delete user. Please try again.');

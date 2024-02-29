@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from "axios";
 
 function GetAdminById() {
     var [admin, setAdmins] = useState({
@@ -17,17 +18,21 @@ function GetAdminById() {
         setAdminIdInput(e.target.value);
     };
 
- var fetchAdminById = () => {
+    const fetchAdminByUsername = () => {
+        const token = localStorage.getItem('token');
         const username = adminIdInput.trim();
-        if(username){
-        fetch(`http://localhost:5260/api/Admin/admin/admins/get/${username}`)
-            .then(res => res.json()) //converting to json//success
+        if (username) {
+            axios.get(`http://localhost:5260/api/Admin/admin/admins/get/${username}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
             .then(res => {
-                setAdmins(res);
-            }, [])
-            .catch(err => console.log(err));//error
-        }else{
-            console.error("Please enter a valid admin ID");
+                setAdmins(res.data); // Set the admin state with the response data
+            })
+            .catch(err => console.error(err)); // Log the error
+        } else {
+            console.error("Please enter a valid username");
         }
     }
 
@@ -40,7 +45,7 @@ function GetAdminById() {
             <section className="services" id="services">
                 <div className="services-container">
                 <input type="text" value={adminIdInput} onChange={handleInputChange} placeholder="Enter Username" />
-                <button onClick={fetchAdminById} className='btn btn-primary'>Submit</button>
+                <button onClick={fetchAdminByUsername} className='btn btn-primary'>Submit</button>
                 {admin.adminId !== 0 && 
                         <div className="box">
                             <h4>AdminId: {admin.adminId}</h4>

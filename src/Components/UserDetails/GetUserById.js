@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from "axios";
 
 function GetUserById() {
     var [user, setUsers] = useState([{
@@ -18,19 +19,25 @@ function GetUserById() {
         setAdminIdInput(e.target.value);
     };
 
- var fetchUserById = () => {
+    const handleFetchUserById = () => {
         const id = adminIdInput.trim();
-        if(id){
-        fetch(`http://localhost:5260/api/User/user/GetUser/${id}`)
-            .then(res => res.json()) //converting to json//success
-            .then(res => {
-                setUsers(res);
-            }, [])
-            .catch(err => console.log(err));//error
-        }else{
+        if (id) {
+            const token = localStorage.getItem('token');
+            axios.get(`http://localhost:5260/api/User/user/GetUser/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            .then(response => {
+                setUsers(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching user by ID:', error);
+            });
+        } else {
             console.error("Please enter a valid user ID");
         }
-    }
+    };
 
     return (
         <div className='all-div'>
@@ -41,7 +48,7 @@ function GetUserById() {
             <section className="services" id="services">
                 <div className="services-container">
                 <input type="text" value={adminIdInput} onChange={handleInputChange} placeholder="Enter User ID" />
-                <button onClick={fetchUserById} className='btn btn-primary'>Submit</button>
+                <button onClick={handleFetchUserById} className='btn btn-primary'>Submit</button>
                 {user.userId !== 0 && 
                         <div className="box">
                             <h4>UserId:{user.userId}</h4>

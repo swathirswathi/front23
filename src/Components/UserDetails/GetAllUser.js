@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import axios from "axios";
 
 function GetAllUser() {
     var [users, setUsers] = useState([{
@@ -14,13 +14,25 @@ function GetAllUser() {
     }])
 
     useEffect(() => {
-        fetch("http://localhost:5260/api/User/admin/GetUser")
-            .then(res => res.json()) //converting to json//success
-            .then(res => {
-                setUsers(res);
-            }, [])
-            .catch(err => console.log(err));//error
-    })
+        const fetchUserData = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const response = await axios.get(
+                    "http://localhost:5260/api/User/admin/GetUser",
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
+                );
+                setUsers(response.data);
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        };
+
+        fetchUserData();
+    }, []);
 
     return (
         <div className='all-div'>

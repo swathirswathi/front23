@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from "axios";
 
 function GetCarById() {
     var [cars, setCars] = useState([{
@@ -6,7 +7,7 @@ function GetCarById() {
         "make": "0",
         "model": "0",
         "year": "0",
-        "availability": "0",
+        "availability": true,
         "dailyRate": "0",
         "imageURL": "0",
         "specification":"0"
@@ -18,19 +19,25 @@ function GetCarById() {
         setAdminIdInput(e.target.value);
     };
 
- var fetchCarById = () => {
+    const fetchCarById = () => {
         const id = adminIdInput.trim();
-        if(id){
-        fetch(`http://localhost:5260/api/Car/User/Cars/${id}`)
-            .then(res => res.json()) //converting to json//success
-            .then(res => {
-                setCars(res);
-            }, [])
-            .catch(err => console.log(err));//error
-        }else{
+        if (id) {
+            const token = localStorage.getItem('token');
+            axios.get(`http://localhost:5260/api/Car/User/Cars/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            .then(response => {
+                setCars(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching car by ID:', error);
+            });
+        } else {
             console.error("Please enter a valid Car ID");
         }
-    }
+    };
 
     return (
         <div className='all-div'>
@@ -48,7 +55,7 @@ function GetCarById() {
                                 <h6>Make:{cars.make}</h6>
                                 <h6>Model:{cars.model}</h6>
                                 <h6>Year:{cars.year}</h6>
-                                <h6>Availability:{cars.availability}</h6>
+                                <h6>Availability:{cars.availability? "Available" : "NotAvailable"}</h6>
                                 <h6>DailyRate:{cars.dailyRate}</h6>
                                 <h6>Image: <img className='img1' src={cars.imageURL} alt="cars" /></h6> 
                                 <h6>Specification:{cars.specification}</h6> 

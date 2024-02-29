@@ -17,8 +17,10 @@ function AddCar() {
   const [year, setYear] = useState();
   const navigate = useNavigate();
 
-  async function AdminAddcar() {
+  const AdminAddcar = async () => {
     try {
+      setLoading(true);
+      const token = localStorage.getItem('token');
       await axios.post("http://localhost:5260/api/Car/admin/cars", {
         carId: 0,
         make: CarName,
@@ -35,19 +37,23 @@ function AddCar() {
         reservations: null,
         payments: null,
         discounts: null,
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       });
       toast.success("Successfully Added Car");
-      setLoading(true);
       await new Promise((resolve) => setTimeout(resolve, 2000));
       navigate("/AdminDashboard");
     } catch (err) {
-      alert(err);
+      console.error('Failed to add car:', err);
+      toast.error("Failed to Add Car");
+    } finally {
+      setLoading(false);
     }
-  }
-
+  };
   return (
     <>
-      <MainNav />
       <ToastContainer />
       <div className="container">
         <div className="row justify-content-center">
