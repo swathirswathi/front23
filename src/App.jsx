@@ -17,6 +17,8 @@ import AdminDetails from "./Components/AdminDetails/AdminDetails.js";
 import CarDetailsPage from "./Components/CarDetailsPage/CarDetailsPage.js";
 import UserDetails from "./Components/UserDetails/UserDetails.js";
 import ReservationDetails from "./Components/ReservationDetails/ReservationDetails.js";
+import PaymentDetails from "./Components/PaymentDetails/PaymentDetails.js";
+import HelpSupport from "./Components/Cars/HelpSupport.js"
 
 function App() {
   return (
@@ -39,6 +41,8 @@ function App() {
         <Route path="/carDetailsPage" element={<CarDetailsPage />} />
         <Route path="/userDetails" element={<UserDetails />} />
         <Route path="/reservationDetails" element={<ReservationDetails />} />
+        <Route path="/paymentDetails" element={<PaymentDetails />} />
+        <Route path="/help&support" element={<HelpSupport />} />
       </Routes>
   );
 }

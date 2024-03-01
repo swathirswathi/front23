@@ -44,7 +44,7 @@ function Login(props) {
       toast.success("Login Success");
       setLoading(true);
       await new Promise((resolve) => setTimeout(resolve, 2000));
-      navigate("/dashboard", { state: { username, token } });
+      navigate("/dashboard", { state: { username, token} });
     } catch (err) {
       alert("Invalid Username or Password");
       toast.error(err);

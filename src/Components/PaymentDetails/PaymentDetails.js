@@ -1,18 +1,14 @@
 import React ,{useState} from 'react';
 import { Link } from 'react-router-dom';
 import MainNav from "../../Components/MainNav/mainNav";
-import GetAllAdmin from './GetAllAdmin';
-import GetAdminById from "./GetAdminById";
-import GetAdminByUsername from "./GetAdminByUsername";
-import DeleteAdmin from "./DeleteAdmin";
-import UpdateEmailAdmin from './UpdateEmailAdmin';
-import "./AdminDetails.css";
+import GetAllPayment from './GetAllPayment';
+import "../../Components/AdminDetails/AdminDetails.css";
 
 
-function AdminDetailsPage ({ token }) {
+function PaymentDetails () {
     const [selectedButton, setSelectedButton] = useState(null);
 
-  const buttons = [ 'Get All Admin', 'Get Admin By Id', 'Get Admin By Username', 'Delete Admin',/*'UpdateEmail'*/ ,'Back'];
+  const buttons = [ 'Get All Payment', 'Back'];
 
   const handleButtonClick = (index) => {
     setSelectedButton(index);
@@ -21,20 +17,9 @@ function AdminDetailsPage ({ token }) {
   const renderDetails = () => {
     switch (selectedButton) {
         case 0:
-          return <GetAllAdmin token={token}/>;
+          return <GetAllPayment />;
         case 1:
-          return <GetAdminById token={token}/>;
-        case 2:
-          return <GetAdminByUsername token={token}/>;
-        case 3:
-          return <DeleteAdmin token={token}/>;
-        // case 4:
-        //   return <UpdateEmailAdmin/>;
-        case 5:
-          return <Link to={{
-            pathname: '/adminDashboard',
-            state: { token: token }
-          }}>Back to Admin Dashboard</Link>;
+          return <Link to="/adminDashboard">Back to Admin Dashboard</Link>;
         default:
           return null;
     }
@@ -63,4 +48,4 @@ function AdminDetailsPage ({ token }) {
   
 };
 
-export default AdminDetailsPage;
+export default PaymentDetails;

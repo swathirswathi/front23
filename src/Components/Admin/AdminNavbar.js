@@ -15,10 +15,12 @@ function AdminNavbar(props) {
   const location = useLocation();
   const tok = location.state;
 
+
   const pass = () => {
     navigate("/AdminProfile", {
       state: {
         token: tok.token,
+        adminId:tok.adminId?tok.adminId:null,
         username: tok.username ? tok.username : null,
         email: tok.email ? tok.email : null,
         pic: tok.picture ? tok.picture : null,
@@ -26,7 +28,7 @@ function AdminNavbar(props) {
       },
     });
   };
-
+  
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container fluid className="navcolor">
@@ -68,6 +70,13 @@ function AdminNavbar(props) {
               href="/reservationDetails"
             >
               Reservation
+            </Nav.Link>
+
+            <Nav.Link
+              style={{color: "black",fontFamily:"-apple-system,Helvetica Neue, Arial, sans-serif,Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol",}}
+              href="/paymentDetails"
+            >
+              Payment
             </Nav.Link>
 
           </Nav>

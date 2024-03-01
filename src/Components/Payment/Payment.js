@@ -1,5 +1,5 @@
 import { Card } from "react-bootstrap";
-import NavScrollExample from "../../Components/MainNav/mainNav";
+import NavScrollExample from "../../Components/Cars/Navbar";
 import card from "../../Images/credit-card.png";
 import wallet from "../../Images/wallet.png";
 import upi from "../../Images/upi.png";
@@ -33,7 +33,9 @@ function Payment() {
       }
       const reservation = location.state.reservation;
       const res = location.state.res;
-      console.log(res,formattedDate,reservation.reservationId,reservation.userId,reservation.carId );
+      const token=location.state.token;
+      const username=location.state.username;
+      const token1 = localStorage.getItem('token');
       await axios.post("http://localhost:5260/api/Payment/user/payment/make", {
         paymentMethod: "UPI",
         paymentAmount: res + 99 + 99,
@@ -43,9 +45,18 @@ function Payment() {
         reservationId: reservation.reservationId,
         userId: reservation.userId, 
         carId: reservation.carId
+      }, {
+        headers: {
+          Authorization: `Bearer ${token1}`,
+        },
       });
       alert("Payment success");  
-      navigate("/dashBoard");
+      navigate("/dashBoard", {
+        state: {
+          token: token,
+          username:username
+        }
+      });
     } catch (err) {
       alert("Payment failed");
       console.error("Error making payment:", err);

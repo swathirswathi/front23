@@ -1,0 +1,70 @@
+.help-support-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: #f0f5f9;
+    color: #37474f;
+    padding: 20px;
+    height: 100vh;
+}
+
+.help-support-container h2 {
+    text-align: center;
+    width: 100%;
+    margin-top: 15px; 
+    margin-bottom: 25px;
+}
+
+.contact-info,
+.company-info,
+.terms-conditions,
+.privacy-policy {
+    background-color: #ffffff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex-basis: calc(50% - 20px);
+}
+
+.contact-info,
+.company-info {
+    margin-right: 20px;
+}
+
+.contact-info h3,
+.company-info h3,
+.terms-conditions h3,
+.privacy-policy h3 {
+    color: #1565c0;
+}
+
+.faq {
+    background-color: #ffffff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex-basis: 50%;
+    order: 5; 
+}
+
+.faq h3 {
+    color: #1565c0;
+}
+
+@media (max-width: 768px) {
+    .help-support-container {
+        flex-direction: column;
+    }
+
+    .contact-info,
+    .company-info,
+    .terms-conditions,
+    .privacy-policy,
+    .faq {
+        flex-basis: 100%;
+        margin-right: 0;
+    }
+}
