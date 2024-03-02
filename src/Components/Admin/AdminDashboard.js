@@ -16,11 +16,12 @@ function AdminDash() {
 
   async function GetBookings() {
     try {
+      const token1 = localStorage.getItem('token');
       const result = await axios.get(
         "http://localhost:5260/api/Reservation/admin/All",
         {
           headers: {
-            Authorization: `Bearer ${token.token}`,
+            Authorization: `Bearer ${token1}`,
           },
         }
       );

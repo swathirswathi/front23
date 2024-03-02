@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 function UpdateAvailability() {
-  const [carId, setCarId] = useState(null);
-  const [newAvailability, setNewAvailability] = useState(false); 
+  const [carId, setCarId] = useState('');
+  const [newAvailability, setNewAvailability] = useState(true); 
   const [isUpdating, setIsUpdating] = useState(false);
 
   const handleCarIdChange = (event) => {
@@ -20,7 +20,7 @@ function UpdateAvailability() {
       setIsUpdating(true);
       const authToken = localStorage.getItem('token');
       const response = await axios.put(
-        `http://localhost:5260/api/Car/${carId}/availability`, 
+        `http://localhost:5260/api/Car/${carId}/availibility`, 
         { availability: newAvailability, carId: carId }, 
         {
           headers: {

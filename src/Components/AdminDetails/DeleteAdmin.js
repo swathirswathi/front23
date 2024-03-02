@@ -14,23 +14,28 @@ function DeleteAdmin() {
         const token = localStorage.getItem('token');
         const id = adminIdInput.trim();
         if (id) {
-            axios.delete(`http://localhost:5260/api/Admin/admin/admins/del/${id}`, {
-            headers: {
-                Authorization: `Bearer ${token}`
+            const confirmDelete = window.confirm("Are you sure you want to delete this admin?");
+            if (confirmDelete) {
+                axios.delete(`http://localhost:5260/api/Admin/admin/admins/del/${id}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then(() => {
+                    setMessage('Admin deleted successfully.');
+                    setAdminIdInput('');
+                })
+                .catch(error => {
+                    console.error('Error deleting admin:', error);
+                    setMessage('Failed to delete admin. Please try again.');
+                });
+            } else {
+                setMessage('Deletion canceled.');
             }
-        })
-        .then(() => {
-            setMessage('Admin deleted successfully.');
-            setAdminIdInput('');
-        })
-        .catch(error => {
-            console.error('Error deleting admin:', error);
-            setMessage('Failed to delete admin. Please try again.');
-        });
-    } else {
-        setMessage('Please enter a valid admin ID.');
-    }
-};
+        } else {
+            setMessage('Please enter a valid admin ID.');
+        }
+    };
 
     return (
         <div className="delete-admin-container">

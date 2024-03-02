@@ -1,6 +1,5 @@
 import { Card } from "react-bootstrap";
 import NavScrollExample from "../../Components/Cars/Navbar";
-import img4 from "../../Images/etios4.jpg";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useState, useEffect } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
@@ -13,6 +12,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import "./Reservation.css"
 
 function Reservation() {
   const navigate = useNavigate();
@@ -47,7 +47,7 @@ function Reservation() {
   };
 
   const [result, setResult] = useState();
-  const [res, setRes] = useState(0);
+  const [res, setRes] = useState(0);// Storing trip amount
 
   const Trip = () => {
     var months = [30, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -130,7 +130,6 @@ function Reservation() {
           Authorization: `Bearer ${token1}`,
         },
       });
-
       const reservationId = reservationResponse.data.reservationId;
       alert("Reservation success");
       navigate("/payment", {
@@ -196,7 +195,7 @@ function Reservation() {
             To
           </div>
           <div style={{ position: "relative", right: "270px", bottom: "70px" }}>
-            <span className="starttime">
+            <span className="starttime" style={{position: "absolute",width: "200px",marginLeft:"300px",marginTop:"60px"}}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={["DateTimePicker"]}>
                   <DateTimePicker
@@ -208,7 +207,7 @@ function Reservation() {
                 </DemoContainer>
               </LocalizationProvider>
             </span>
-            <span className="endtime">
+            <span className="endtime" style={{position: "absolute",width: "200px",marginLeft:"600px",marginTop:"60px"}}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={["DateTimePicker"]}>
                   <DateTimePicker

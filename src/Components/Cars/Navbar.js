@@ -1,20 +1,14 @@
-import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import img from "../../Images/car-logo.jpg";
 import profile from "../../Images/profile-logo.png";
-//import NavDropdown from "react-bootstrap/NavDropdown";
 import { useLocation,useNavigate } from "react-router-dom";
 import "../../Components/MainNav/mainNav";
-import axios from "axios";
 import { toast,ToastContainer } from "react-toastify";
 import Sidebar from "./Sidebar";
-import { useState } from "react";
 
 function NavScrollExample(props) {
-  const [userdata, setUserdata] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
   const tok = location.state;
@@ -36,7 +30,7 @@ function NavScrollExample(props) {
       <Container fluid className="navcolor">
         <Sidebar />
         <ToastContainer />
-        <Navbar.Brand href="/Dashboard">
+        <Navbar.Brand href="/dashboard">
           <img className="img" src={img} alt="img" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
@@ -46,27 +40,7 @@ function NavScrollExample(props) {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Nav.Link
-              style={{
-                color: "black",
-
-                fontFamily:
-                  "-apple-system,Helvetica Neue, Arial, sans-serif,Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol",
-              }}
-              href="#action2"
-            >
-              {/* About */}
-            </Nav.Link>
-            <Nav.Link
-              style={{
-                color: "black",
-                fontFamily:
-                  "-apple-system,Helvetica Neue, Arial, sans-serif,Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol",
-              }}
-              href="#action2"
-            >
-              {/* Contact */}
-            </Nav.Link>
+            
           </Nav>
           
           <Navbar.Brand>

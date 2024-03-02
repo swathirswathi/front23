@@ -30,11 +30,12 @@ function AdminProfile(props) {
 
   async function getUserDetails() {
     try {
+      const token1 = localStorage.getItem('token');
       const result = await axios.get(
         "http://localhost:5260/api/Admin/admin/admins/get/" + toke.username,
         {
           headers: {
-            Authorization: `Bearer ${toke.token}`,
+            Authorization: `Bearer ${token1}`,
           },
         }
       );
@@ -62,12 +63,13 @@ function AdminProfile(props) {
       const { adminId: tokenAdminId, token } = toke; // Rename adminId to tokenAdminId
       const { email } = editedData;
       const adminId = data.adminId ? data.adminId : tokenAdminId; // Use tokenAdminId here
+      const token1 = localStorage.getItem('token');
       await axios.put(
         `http://localhost:5260/api/Admin/${data.adminId?data.adminId:toke.adminId}/update-email`,
         { adminId, email },
         {
           headers: {
-            Authorization: `Bearer ${toke.token}`,
+            Authorization: `Bearer ${token1}`,
           },
         }
       );
@@ -84,13 +86,13 @@ function AdminProfile(props) {
       const { adminId: tokenAdminId, token } = toke;
       const { phoneNumber } = editedData;
       const adminId = data.adminId ? data.adminId : tokenAdminId;
-  
+      const token1 = localStorage.getItem('token');
       await axios.put(
         `http://localhost:5260/api/Admin/${data.adminId?data.adminId:toke.adminId}/update-phone-number`,
         { adminId, phoneNumber},
         {
           headers: {
-            Authorization: `Bearer ${toke.token}`,
+            Authorization: `Bearer ${token1}`,
           },
         }
       );

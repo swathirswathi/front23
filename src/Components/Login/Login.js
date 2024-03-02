@@ -11,7 +11,7 @@ import { jwtDecode } from "jwt-decode";
 import Profile from "../../Components/Cars/Profile";
 import Reservation from "../Reservations/Reservation";
 import { GoogleLogin } from "@react-oauth/google";
-import UpdateEmail from "../AdminDetails/UpdateEmailAdmin";
+
 
 function Login(props) {
   const [username, setUsername] = useState("");
@@ -69,14 +69,13 @@ function Login(props) {
 
       <Profile data={{ username: username, password: password }} />;
       <Reservation data={{ username: username, password: password }} />;
-      
       setToken(result.data.token);
       toast.success("Login Success");
       setLoading(true);
       await new Promise((resolve) => setTimeout(resolve, 2000));
       navigate("/adminDashboard", { state: { username, token } });
     } catch (err) {
-      alert("Invalid Username or Password / User already Exist");
+      alert("Invalid Username or Password ");
       toast.error(err);
     }
   }

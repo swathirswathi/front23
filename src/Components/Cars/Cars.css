@@ -1,10 +1,4 @@
-.cardd {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: auto;
-    margin-top: 30px;
-    margin-left: 300px;
-  }
+
   .solocard {
     margin-top: 10px;
     transition: 0.3s;
@@ -188,22 +182,4 @@
     background-image: linear-gradient(to right, white , rgb(202, 223, 254));
     font-weight:500;
   }
-  .cardd {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid layout */
-    grid-gap: 20px;
-    margin-top: 30px;
-    padding: 0 20px; 
-    margin-left: 100px;
-    }
-  @media (max-width: 768px) {
-    .cardd {
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust grid for smaller screens */
-    }
-  }
   
-  @media (max-width: 576px) {
-    .cardd {
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Further adjust for even smaller screens */
-    }
-  }

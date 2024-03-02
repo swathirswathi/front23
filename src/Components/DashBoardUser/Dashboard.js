@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import BasicDatePicker from "../../Components/Cars/date";
-import Locations from "../../Components/Cars/Locations";
 import NavScrollExample from "../../Components/Cars/Navbar";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
@@ -62,7 +61,7 @@ function Dashboard() {
           name: token.name ? token.name : null,
         }}
       />
-      <Locations />
+       <br/>
       <BasicDatePicker />
       <ToastContainer />
       <div className="cardd">

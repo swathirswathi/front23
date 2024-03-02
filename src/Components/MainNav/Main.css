@@ -140,18 +140,4 @@
   left: 915px;
 }
 
-@media screen and (max-width: 992px) {
-  .cardd {
-    grid-template-columns: repeat(2, 1fr);
-    width: 90vw;
-    margin-left: auto; 
-    margin-right: auto; 
-  }
-}
 
-@media screen and (max-width: 576px) {
-  .cardd {
-    grid-template-columns: repeat(1, 1fr); 
-    width: 95vw; 
-  }
-}

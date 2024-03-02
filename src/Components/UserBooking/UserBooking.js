@@ -42,9 +42,9 @@ function UserBookings() {
                 <td>{data.user.username}</td>
                 <td>{data.car.make+" "+data.car.model} | CarID={data.car.carId} | {data.car.specification.slice(0,15)}</td>
                 <td>{data.pickUpDateTime}</td>
-                <td>{data.pickUpLocation}</td>
+                <td>{data.pickUpStoreLocation}</td>
                 <td>{data.dropOffDateTime}</td>
-                <td>{data.dropOffLocation}</td>
+                <td>{data.dropOffStoreLocation}</td>
                 <td>{data.totalPrice}</td>
             </tr>
         </tbody>

@@ -25,7 +25,6 @@ function Register() {
   };
 
   async function AddUser() {
-    console.log(username);
     try {
       await axios.post("http://localhost:5260/Register_User", {
         username: username,

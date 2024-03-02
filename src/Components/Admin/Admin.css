@@ -1,12 +1,4 @@
-.cardd {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: auto;
-    margin-top: 30px;
-    margin-left: 55px;
-    width: 80vw;
-    height:90vh;
-  }
+
   .solocard {
     margin-top: 10px;
     transition: 0.3s;
@@ -147,18 +139,7 @@
   .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root{
     width: 290px;
   }
-  .starttime {
-    position: absolute;
-    width: 200px;
-    margin-left: 300px;
-    margin-top: 60px;
-  }
-  .endtime{
-    position: absolute;
-    width: 300px;
-    margin-left: 608px;
-    margin-top: 60px;
-  }
+  
   .dropdown-toggle{
     position: relative;
     top: 115px;
@@ -189,36 +170,8 @@
     background-image: linear-gradient(to right, white , rgb(202, 223, 254));
     font-weight:500;
   }
-  .reserve{
-    display: flex;
-    flex-wrap: wrap;
-    
-  }
-  .secondcard{
-    flex: 1.5;
-    width: 20%;
-  }
-  .thirdcard{
-    flex: 1.5;
-    width: 80%;
-  }
+  
   .payment{
     display: flex;
     flex-wrap: wrap;
-  }
-
-  @media screen and (max-width: 992px) {
-    .cardd {
-      grid-template-columns: repeat(2, 1fr);
-      width: 90vw;
-      margin-left: auto; 
-      margin-right: auto; 
-    }
-  }
-  
-  @media screen and (max-width: 576px) {
-    .cardd {
-      grid-template-columns: repeat(1, 1fr); 
-      width: 95vw; 
-    }
   }

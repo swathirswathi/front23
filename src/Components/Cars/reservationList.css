@@ -1,0 +1,65 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.heading {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  color: #007bff; 
+}
+
+.table {
+  background-color: #fff;
+}
+
+.table th,
+.table td {
+  text-align: center;
+}
+
+.cancel-button {
+  background-color: #dc3545; /* Red color */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cancel-button:hover {
+  background-color: #c82333; /* Darker red on hover */
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 992px) {
+  .container {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .table th,
+  .table td {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding: 5px;
+  }
+  .heading {
+    font-size: 24px;
+  }
+  .table th,
+  .table td {
+    padding: 8px;
+    font-size: 12px;
+  }
+  .cancel-button {
+    padding: 6px 12px;
+  }
+}
