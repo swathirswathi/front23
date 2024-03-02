@@ -5,14 +5,13 @@ import GetAllAdmin from './GetAllAdmin';
 import GetAdminById from "./GetAdminById";
 import GetAdminByUsername from "./GetAdminByUsername";
 import DeleteAdmin from "./DeleteAdmin";
-import UpdateEmailAdmin from './UpdateEmailAdmin';
 import "./AdminDetails.css";
 
 
 function AdminDetailsPage ({ token }) {
     const [selectedButton, setSelectedButton] = useState(null);
 
-    const buttons = ['Get All Admin', 'Get Admin By Id', 'Get Admin By Username', 'Delete Admin', /*'UpdateEmail'*/, 'Back'];
+    const buttons = ['Get All Admin', 'Get Admin By Id', 'Get Admin By Username', 'Delete Admin', 'Back'];
 
     const handleButtonClick = (index) => {
         setSelectedButton(index);
@@ -58,8 +57,8 @@ function AdminDetailsPage ({ token }) {
                 return <GetAdminByUsername token={token} />;
             case 3:
                 return <DeleteAdmin token={token} />;
-            // case 4:
-            //   return <UpdateEmailAdmin/>;
+            case 4:
+                return <Link to="/adminDashboard">Back to Admin Dashboard</Link>;    
             default:
                 return null;
         }

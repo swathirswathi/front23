@@ -12,7 +12,6 @@ function UpdateAvailability() {
 
   const handleAvailabilityChange = (value) => {
     setNewAvailability(value);
-    
   };
 
   const handleUpdateAvailability = async () => {

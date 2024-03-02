@@ -2,14 +2,14 @@ import AdminNavbar from "./AdminNavbar";
 import Table from "react-bootstrap/Table";
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation} from "react-router-dom";
 import axios from "axios";
 
 function AdminDash() {
   const location = useLocation();
   const token = location.state;
   const [userdata, setUserData] = useState([[]]);
-  const navigate = useNavigate();
+
   useEffect(() => {
     (async () => await GetBookings())();
   }, []);

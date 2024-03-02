@@ -11,7 +11,7 @@ import { ToastContainer } from "react-toastify";
 import Sidebar from "../../Components/Cars/Sidebar";
 import { useState } from "react";
 
-function AdminNavbar(props) {
+function AdminNavbar() {
   const navigate = useNavigate();
   const location = useLocation();
   const tok = location.state;

@@ -7,10 +7,8 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import Profile from "./Profile";
 import { GoogleLogin } from "@react-oauth/google";
-
 import { jwtDecode } from "jwt-decode";
 
 function Admin(props) {
@@ -107,7 +105,7 @@ function Admin(props) {
                     </span>
 
                     <span className="newuser">
-                      <Link to="/adminregister">New User?</Link>
+                      <Link to="/adminregister">New Admin?</Link>
                     </span>
                   </div>
                   <div className="usergmail">
@@ -117,7 +115,7 @@ function Admin(props) {
                           credentialResponse?.credential
                         );
                         console.log(decoded);
-                        navigate("/dashboard", {
+                        navigate("/adminDashboard", {
                           state: {
                             email: decoded.email,
                             name: decoded.name,
