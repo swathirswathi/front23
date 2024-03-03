@@ -8,7 +8,7 @@ import img from "../../Images/profile-logo.png";
 import "./Cars.css";
 
 function Profile() {
-  const [data, setCarData] = useState({});
+  const [data, setData] = useState({});
   const [showEditEmail, setShowEditEmail] = useState(false);
   const [showEditPhoneNumber, setShowEditPhoneNumber] = useState(false);
   const [editedData, setEditedData] = useState({});
@@ -28,6 +28,7 @@ function Profile() {
   }, [toke]);
 
   async function getUserDetails() {
+
     try {
       const result = await axios.get(
         `http://localhost:5260/api/User/user/GetUser/get/${toke.username}`,
@@ -37,7 +38,7 @@ function Profile() {
           },
         }
       );
-      setCarData(result.data);
+      setData(result.data);
     } catch (err) {
       toast.error(err.message);
     }
@@ -106,21 +107,28 @@ function Profile() {
       <NavScrollExample />
       <div className="profile-cont">
         <div className="profile-sidebar">
+         
           <Card style={{ position: "relative", width: "25vw", height: "70vh", top: "100px" }}>
             <Card.Header style={{ backgroundColor: "white", height: "200px" }}>
+             
               <div>
                 <img style={{ height: "120px", marginTop: "10px" }} src={img} alt="img" />
               </div>
+
               <div style={{ marginTop: "5px" }}>
                 <b>{data.firstName ? data.firstName : toke?.name}</b>
               </div>
+
               <div style={{ opacity: "0.8" }}>{data.email ? data.email : toke?.email}</div>
+           
             </Card.Header>
+
             <div
               style={{ textAlign: "start", cursor: "pointer" }}
               className={selectedDiv === 0 ? "box red" : "box"}
               onClick={() => changeColor(0)}
             >
+
               <p style={{ marginLeft: "20px", marginTop: "10px" }}>Account</p>
               <Link to="/" style={{ display: "flex", justifyContent: "center" }}>
               <Button variant="primary" style={{ mt:"0px",ml: "5px" }}> Logout </Button>
@@ -128,14 +136,17 @@ function Profile() {
 
             </div>
           </Card>
+
         </div>
+
         <div>
           <Card style={{ width: "70vw", height: "70vh", top: "100px" }}>
+            
             <Card.Header style={{ borderBottom: "none", backgroundColor: "white", fontSize: "Large", fontWeight: "500" }}>
               Account
               <br />
               
-              {/* Construct link to ReservationList with userId as state */}
+              {/* Construct link to ReservationList with userId */}
               {data.userId && (
                 <Link
                   to={{
@@ -147,6 +158,7 @@ function Profile() {
                 </Link>
               )}
             </Card.Header>
+            
             <div style={{ marginTop: "50px", textAlign: "left", marginLeft: "30px", fontSize: "large", fontWeight: "500" }}>Account Details</div>
             <hr style={{ marginLeft: "20px", marginRight: "20px", position: "relative", bottom: "15px" }} />
             <div style={{ textAlign: "left", position: "relative", bottom: "10px" }}>

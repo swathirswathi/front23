@@ -34,23 +34,24 @@ function GetAllCar() {
                 <h3>All Car Details</h3>
             </div>
             <section className="services" id="services">
-                <div className="services-container">
-                    {cars.map((car) =>
-                        <div key={car.carId}>
-                            <div class="box">
-                                <h4>CarId:{car.carId}</h4>
-                                <h6>Make:{car.make}</h6>
-                                <h6>Model:{car.model}</h6>
-                                <h6>Year:{car.year}</h6>
-                                <h6>Availability:{car.availability? "Available" : "NotAvailable"}</h6>
-                                <h6>DailyRate:{car.dailyRate}</h6>
-                                <h6>Image: <img className='img1' src={car.imageURL} alt="cars" /></h6> 
-                                <h6>Specification:{car.specification}</h6> 
-                            </div>
-                        </div>
-                    )}
+    <div className="services-container">
+        {cars.map((car) =>
+            <div key={car.carId} className="card">
+                <div className="card-body">
+                <img className="card-img-top" src={car.imageURL} alt="Car" />
+                    <h4 className="card-title">CarId: {car.carId}</h4>
+                    <p className="card-text">Make: {car.make}</p>
+                    <p className="card-text">Model: {car.model}</p>
+                    <p className="card-text">Year: {car.year}</p>
+                    <p className="card-text">Availability: {car.availability ? "Available" : "Not Available"}</p>
+                    <p className="card-text">DailyRate: {car.dailyRate}</p>
+                    <p className="card-text">Specification: {car.specification}</p>
                 </div>
-            </section>
+            </div>
+        )}
+    </div>
+</section>
+
         </div>
     );
 }

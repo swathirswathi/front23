@@ -32,12 +32,13 @@ function Reservation() {
     { code: "Vijayawada", title: "Vijaywada" },
   ]);
 
+  //StartLocation
   const [toggleContents, setToggleContents] = useState("Select Location");
   const [selectedCountrystart, setSelectedCountry] = useState();
-
+  //EndLocation
   const [toggleContent, setToggleContent] = useState("Select Location");
   const [selectedCountyend, setSelectedCounty] = useState();
-
+  //Start and end Date
   const [start, setstart] = React.useState(dayjs());
   const [end, setend] = React.useState(dayjs());
 
@@ -46,13 +47,14 @@ function Reservation() {
     setSelectedDiv(index);
   };
 
+  //Review
   const [usernames, setUsernames] = useState({});
   const [reviews, setReviews] = useState([]);
   const [rating, setRating] = useState(0);
   const [comments, setComments] = useState('');
 
+  //Wallet an offers
   const [result, setResult] = useState();
-  const [result1, setResult1] = useState();
   const [res, setRes] = useState(0); // Storing trip amount
 
   const Trip = () => {
@@ -66,6 +68,7 @@ function Reservation() {
     }
   };
 
+  //Review
   const handleRatingChange = (event) => {
     setRating(event.target.value);
   };
@@ -77,7 +80,7 @@ function Reservation() {
   useEffect(() => {
     (async () => {
       await GetUserDetails();
-      fetchReviews();
+     fetchReviews();
     })();
   }, []);
 
@@ -98,11 +101,12 @@ function Reservation() {
     }
   }
 
+  //AddReservation And check for overlapping
   const AddReservation = async () => {
     try {
       const token1 = localStorage.getItem('token');
       const reservationsResponse = await axios.get(
-        `http://localhost:5260/api/Reservation/user/Admin/Car/${data.Data.carId}`,
+        `http://localhost:5260/api/Reservation/user/Admin/ Car/${data.Data.carId}`,
         {
           headers: {
             Authorization: `Bearer ${token1}`,
@@ -123,7 +127,7 @@ function Reservation() {
         );
       });
 
-      // If there's no overlap, allow the user to proceed with the payment
+      // If there's no overlap, allow the user to proceed
       if (!overlap) {
         const reservationResponse = await axios.post("http://localhost:5260/api/Reservation/user/MakeReservation", {
           pickUpDateTime: start.toISOString(),
@@ -161,11 +165,12 @@ function Reservation() {
     }
   }
 
+ //AddReview
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const token1 = localStorage.getItem('token');
-      const response = await axios.post('http://localhost:5260/api/Review/user/admin/add', {
+      const response1 = await axios.post('http://localhost:5260/api/Review/user/admin/add', {
         rating: rating,
         comments: comments,
         userId: result.userId,
@@ -180,7 +185,8 @@ function Reservation() {
       alert('Error:', error);
     }
   };
-
+ 
+  //Displaying review
   const fetchReviews = async () => {
     try {
       const token1 = localStorage.getItem('token');
@@ -219,7 +225,8 @@ function Reservation() {
       alert(err);
     }
   }
-
+  
+  //Rating Stars
   const renderStars = (rating) => {
     const filledStar = '\u2B50'; // Unicode for filled star
     const emptyStar = '\u2606'; // Unicode for empty star
@@ -241,9 +248,10 @@ function Reservation() {
   return (
     <>
       <NavScrollExample />
+
+
       <div className="reserve">
-        <Card
-          style={{
+        <Card style={{
             position: "relative",
             marginLeft: "30px",
             width: "50rem",
@@ -251,6 +259,7 @@ function Reservation() {
             top: "100px",
           }}
         >
+         
           <Card.Header style={{ height: "400px" }}>
             <img
               style={{ height: "380px", marginLeft: "40px" }}
@@ -258,6 +267,7 @@ function Reservation() {
               alt="img"
             />
           </Card.Header>
+
           <div
             style={{
               marginLeft: "20px",
@@ -266,46 +276,30 @@ function Reservation() {
               marginTop: "10px",
             }}
           >
-            <ul>
-              <li>{data.Data.make + " " + data.Data.model}</li>
-            </ul>
+              <h5>{data.Data.make + " " + data.Data.model}</h5>
           </div>
+
           <div style={{ marginLeft: "30px", marginTop: "10px" }}>From</div>
-          <div
-            style={{
-              textAlign: "center",
-              position: "relative",
-              bottom: "20px",
-              marginRight: "110px",
-            }}
-          >
-            To
-          </div>
+          <div style={{textAlign: "center", position: "relative", bottom: "20px",marginRight: "110px",}}> To </div>
+         
           <div style={{ position: "relative", right: "270px", bottom: "70px" }}>
+           
             <span className="starttime" style={{ position: "absolute", width: "200px", marginLeft: "300px", marginTop: "60px" }}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={["DateTimePicker"]}>
-                  <DateTimePicker
-                    label="Start Date"
-                    value={start}
-                    onChange={(newValue) => setstart(newValue)}
-                    format="LLL"
-                  />
+                  <DateTimePicker label="Start Date" value={start} onChange={(newValue) => setstart(newValue)} format="LLL"/>
                 </DemoContainer>
               </LocalizationProvider>
             </span>
+
             <span className="endtime" style={{ position: "absolute", width: "200px", marginLeft: "600px", marginTop: "60px" }}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={["DateTimePicker"]}>
-                  <DateTimePicker
-                    label="End Date"
-                    value={end}
-                    onChange={(newValue) => setend(newValue)}
-                    format="LLL"
-                  />
+                  <DateTimePicker label="End Date" value={end} onChange={(newValue) => setend(newValue)} format="LLL"/>
                 </DemoContainer>
               </LocalizationProvider>
             </span>
+
             <Button
               variant="outline-primary"
               style={{ position: "relative", top: "75px", left: "950px" }}
@@ -313,25 +307,19 @@ function Reservation() {
             >
               Save
             </Button>
-          </div>
-          <Dropdown
-            style={{ position: "relative", right: "883px", bottom: "60px" }}
-            onSelect={(eventKey) => {
-              const { code, title } = countries.find(
-                ({ code }) => eventKey === code
-              );
 
+          </div>
+
+
+          <Dropdown style={{ position: "relative", right: "883px", bottom: "60px" }} onSelect={(eventKey) => {const { code, title } = countries.find( ({ code }) => eventKey === code );
               setSelectedCountry(eventKey);
               setToggleContents(<>{title}</>);
             }}
           >
-            <Dropdown.Toggle
-              variant="outline-primary"
-              id="dropdown-flags"
-              className="text-left"
-            >
+            <Dropdown.Toggle variant="outline-primary" id="dropdown-flags" className="text-left" >
               {toggleContents}
             </Dropdown.Toggle>
+
             <Dropdown.Menu>
               {countries.map(({ code, title }) => (
                 <Dropdown.Item key={code} eventKey={code}>
@@ -340,24 +328,16 @@ function Reservation() {
               ))}
             </Dropdown.Menu>
           </Dropdown>
-          <Dropdown
-            style={{ position: "relative", right: "572px", bottom: "100px" }}
-            onSelect={(eventKey) => {
-              const { code, title } = countries.find(
-                ({ code }) => eventKey === code
-              );
 
+          <Dropdown style={{ position: "relative", right: "572px", bottom: "100px" }} onSelect={(eventKey) => {const { code, title } = countries.find( ({ code }) => eventKey === code);
               setSelectedCounty(eventKey);
               setToggleContent(<>{title}</>);
             }}
           >
-            <Dropdown.Toggle
-              variant="outline-primary"
-              id="dropdown-flags"
-              className="text-left"
-            >
+            <Dropdown.Toggle variant="outline-primary" id="dropdown-flags" className="text-left">
               {toggleContent}
             </Dropdown.Toggle>
+
             <Dropdown.Menu>
               {countries.map(({ code, title }) => (
                 <Dropdown.Item key={code} eventKey={code}>
@@ -365,14 +345,13 @@ function Reservation() {
                 </Dropdown.Item>
               ))}
             </Dropdown.Menu>
+
           </Dropdown>
         </Card>
 
 
-
         <div className="secondcard">
-          <Card
-            style={{
+          <Card style={{
               width: "38rem",
               marginLeft: "40px",
               height: "500px",
@@ -391,17 +370,7 @@ function Reservation() {
             >
               Wallet & Offers
             </Card.Header>
-            <div
-              style={{
-                cursor: "pointer",
-              }}
-              className={selectedDiv === 0 ? "box red" : "box"}
-              onClick={() => changeColor(0)}
-            >
-              <p style={{ marginLeft: "20px", marginTop: "10px" }}>
-                Apply Coupon{" "}
-              </p>
-            </div>
+
             <ListGroup style={{ borderRadius: "0px" }}>
               <ListGroup.Item>
                 Trip Amount
@@ -434,6 +403,7 @@ function Reservation() {
               </ListGroup.Item>
             </ListGroup>
             <div>
+
               <div style={{ position: "relative", top: "20px", left: "20px" }}>
                 Please Review Final Amount
               </div>
@@ -539,6 +509,7 @@ function Reservation() {
               </div>
               <h6 style={{ textAlign: "center", fontSize: "1.2rem" }}>Add Review</h6>
               <form onSubmit={handleSubmit}>
+                
                 <div>
                   <label htmlFor="rating">Rating:</label>
                   <select
@@ -552,9 +523,9 @@ function Reservation() {
                     <option value="3">&#128529;Average</option>
                     <option value="2">&#128544;Poor</option>
                     <option value="1">&#128520;Very Poor</option>
-
                   </select>
                 </div>
+
                 <div>
                   <label htmlFor="comments">Comments:</label>
                   <textarea
@@ -564,10 +535,11 @@ function Reservation() {
                     onChange={handleCommentsChange}
                   />
                 </div>
+
                 <Button type="submit">Submit Review</Button>
               </form>
-            </Card.Body>
 
+            </Card.Body>
 
           </Card>
         </div>

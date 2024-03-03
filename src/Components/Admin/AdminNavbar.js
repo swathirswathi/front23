@@ -50,6 +50,8 @@ function AdminNavbar() {
             <Link to="/reservationDetails" className="nav-link">Reservation</Link>
 
             <Link to="/paymentDetails" className="nav-link">Payment</Link>
+            
+            <Link to="/reviewDetails" className="nav-link">Review</Link>
 
           </Nav>
 

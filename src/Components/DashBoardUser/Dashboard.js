@@ -44,18 +44,18 @@ function Dashboard() {
 
   async function fetchAverageRatings(data) {
     try {
-      const promises = data.map(async (car) => {
+        const promises = data.map(async (car) => {
         const averageRating = await getAverageRating(car.carId);
         return { carId: car.carId, rating: averageRating };
       });
   
       const ratings = await Promise.all(promises);
-      const ratingsMap = {};
+      const ratingsMap = {}; //Stores the average ratings mapped by carID
       ratings.forEach((item) => {
         ratingsMap[item.carId] = item.rating;
       });
-  
       setAverageRatings(ratingsMap);
+
     } catch (error) {
       console.error("Error fetching average ratings:", error);
     }
@@ -92,11 +92,13 @@ function Dashboard() {
     const filledStar = '\u2B50'; // Unicode for filled star
     const emptyStar = '\u2606'; // Unicode for empty star
     const stars = filledStar.repeat(rating) + emptyStar.repeat(5 - rating);
-  return stars;
+    return stars;
   };
 
+  //To rent only Available Cars
   const handleRentClick = (event, Data) => {
     event.preventDefault();
+
     if (Data.availability) {
       navigate("/reservation", {
         state: { Data: Data, username: token.username, token: token.token },
@@ -120,20 +122,19 @@ function Dashboard() {
       <br />
       <ToastContainer />
       <br /><br /><br />
+
       <div style={{ textAlign: 'center' }}>
         <h1 style={{ color: 'navy' }}>Welcome to RoadReadyRentals</h1>
         <p style={{ color: 'navy' }}>Please Explore our services</p>
       </div>
+
       <div className="cardd">
         {carData
           ? carData.map(function fn(Data) {
             return (
-              <Card
-                key={Data.id} // Add key prop
-                style={{ width: "18rem", borderColor: "grey" }}
-                className="solocard"
-              >
+              <Card key={Data.id} /* Add key prop*/ style={{ width: "18rem", borderColor: "grey" }}className="solocard">
                 <Card.Img variant="top" src={Data ? Data.imageURL : logo} />
+                
                 <Card.Body>
                   <Card.Title
                     style={{
@@ -144,22 +145,20 @@ function Dashboard() {
                     <p>{renderStars(averageRatings[Data.carId])}</p>
                     {Data ? Data.make + " " + Data.model : ""}
                   </Card.Title>
+
                   {Data ? (
                     <>
-                      <p
-                        style={{
+                      <p style={{
                           fontSize: "15px",
                           opacity: "0.7",
-                          fontFamily:
-                            "-apple-system,Helvetica Neue, Arial, sans-serif,Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol",
+                          fontFamily:"-apple-system,Helvetica Neue, Arial, sans-serif,Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol",
                         }}
                       >
                         {Data.specification}
                       </p>
+
                       <p
-                        style={{
-                          fontFamily:
-                            "-apple-system,Helvetica Neue, Arial, sans-serif,Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol",
+                        style={{ fontFamily: "-apple-system,Helvetica Neue, Arial, sans-serif,Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol",
                         }}
                       >
                         Available :{Data.availability ? "Yes" : "No"}
@@ -168,10 +167,9 @@ function Dashboard() {
                   ) : (
                     <p>No car data available</p>
                   )}
+
                   <Link
-                    to={{
-                      pathname: "/reservation",
-                    }}
+                    to={{ pathname: "/reservation",}}
                     state={{
                       Data: Data,
                       username: token.username,

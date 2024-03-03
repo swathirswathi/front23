@@ -8,7 +8,7 @@ import "../../Components/MainNav/mainNav";
 import { toast,ToastContainer } from "react-toastify";
 import Sidebar from "./Sidebar";
 
-function NavScrollExample(props) {
+function NavScrollExample() {
   const navigate = useNavigate();
   const location = useLocation();
   const tok = location.state;
@@ -30,7 +30,7 @@ function NavScrollExample(props) {
       <Container fluid className="navcolor">
         <Sidebar />
         <ToastContainer />
-        <Navbar.Brand href="/dashboard">
+        <Navbar.Brand href="/">
           <img className="img" src={img} alt="img" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
@@ -39,10 +39,9 @@ function NavScrollExample(props) {
             className="me-auto my-2 my-lg-0"
             style={{ maxHeight: "100px" }}
             navbarScroll
-          >
-            
+          >  
           </Nav>
-          
+
           <Navbar.Brand>
             <img
               style={{ cursor: "pointer" }}
@@ -52,6 +51,7 @@ function NavScrollExample(props) {
               alt="img"
             />
           </Navbar.Brand>
+          
         </Navbar.Collapse>
       </Container>
     </Navbar>

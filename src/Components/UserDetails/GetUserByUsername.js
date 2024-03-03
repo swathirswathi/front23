@@ -10,7 +10,7 @@ function GetUserByUsername() {
         "username": "0",
         "password": "**********",
         "phoneNumber": 0,
-        "registrationDate":"0"
+        "registrationDate": "0"
     }])
 
     const [adminIdInput, setAdminIdInput] = useState("");
@@ -28,17 +28,17 @@ function GetUserByUsername() {
                     Authorization: `Bearer ${token}`
                 }
             })
-            .then(response => {
-                setUsers(response.data);
-            })
-            .catch(error => {
-                console.error('Error fetching user by username:', error);
-            });
+                .then(response => {
+                    setUsers(response.data);
+                })
+                .catch(error => {
+                    console.error('Error fetching user by username:', error);
+                });
         } else {
             console.error("Please enter a valid username");
         }
     };
-    
+
     return (
         <div className='all-div'>
 
@@ -47,23 +47,25 @@ function GetUserByUsername() {
             </div>
             <section className="services" id="services">
                 <div className="services-container">
-                <input type="text" value={adminIdInput} onChange={handleInputChange} placeholder="Enter username" />
-                <button onClick={handleFetchUserByUsername} className='btn btn-primary'>Submit</button>
-                {user.userId !== 0 && 
-                        <div className="box">
-                            <h4>UserId:{user.userId}</h4>
-                                <h6>FirstName:{user.firstName}</h6>
-                                <h6>LastName:{user.lastName}</h6>
-                                <h6>Email:{user.email}</h6>
-                                <h6>UserName:{user.username}</h6>
-                                <h6>Password:{user.password}</h6>
-                                <h6>PhoneNumber:{user.phoneNumber}</h6> 
-                                <h6>RegistrationDate:{user.registrationDate}</h6> 
+                    <input type="text" value={adminIdInput} onChange={handleInputChange} placeholder="Enter username" />
+                    <button onClick={handleFetchUserByUsername} className='btn btn-primary'>Submit</button>
+                    {user.userId !== 0 &&
+                        <div className="card">
+                            <div className="card-body">
+                                <h4 className="card-title">UserId: {user.userId}</h4>
+                                <p className="card-text">FirstName: {user.firstName}</p>
+                                <p className="card-text">LastName: {user.lastName}</p>
+                                <p className="card-text">Email: {user.email}</p>
+                                <p className="card-text">UserName: {user.username}</p>
+                                <p className="card-text">Password: {user.password}</p>
+                                <p className="card-text">PhoneNumber: {user.phoneNumber}</p>
+                                <p className="card-text">RegistrationDate: {user.registrationDate}</p>
+                            </div>
                         </div>
                     }
                 </div>
-                    
             </section>
+
         </div>
     );
 }

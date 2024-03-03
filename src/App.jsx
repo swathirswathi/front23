@@ -20,6 +20,7 @@ import ReservationDetails from "./Components/ReservationDetails/ReservationDetai
 import PaymentDetails from "./Components/PaymentDetails/PaymentDetails.js";
 import HelpSupport from "./Components/Cars/HelpSupport.js"
 import ReservationList from "./Components/Cars/ReservationList.js";
+import ReviewDetails from "./Components/ReviewDetails/ReviewDetails.js";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
         <Route path="/userDetails" element={<UserDetails />} />
         <Route path="/reservationDetails" element={<ReservationDetails />} />
         <Route path="/paymentDetails" element={<PaymentDetails />} />
+        <Route path="/reviewDetails" element={<ReviewDetails />} />
         <Route path="/help&support" element={<HelpSupport />} />
         <Route path="/reservationList/:userId" element={<ReservationList />} />
       </Routes>

@@ -26,8 +26,7 @@ function DeleteAdmin() {
                     setAdminIdInput('');
                 })
                 .catch(error => {
-                    console.error('Error deleting admin:', error);
-                    setMessage('Failed to delete admin. Please try again.');
+                    setMessage('Please enter a valid admin ID.');
                 });
             } else {
                 setMessage('Deletion canceled.');

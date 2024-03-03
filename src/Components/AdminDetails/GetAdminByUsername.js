@@ -27,10 +27,10 @@ function GetAdminById() {
                     Authorization: `Bearer ${token}`
                 }
             })
-            .then(res => {
-                setAdmins(res.data); // Set the admin state with the response data
-            })
-            .catch(err => console.error(err)); // Log the error
+                .then(res => {
+                    setAdmins(res.data); // Set the admin state with the response data
+                })
+                .catch(err => console.error(err)); // Log the error
         } else {
             console.error("Please enter a valid username");
         }
@@ -44,22 +44,24 @@ function GetAdminById() {
             </div>
             <section className="services" id="services">
                 <div className="services-container">
-                <input type="text" value={adminIdInput} onChange={handleInputChange} placeholder="Enter Username" />
-                <button onClick={fetchAdminByUsername} className='btn btn-primary'>Submit</button>
-                {admin.adminId !== 0 && 
-                        <div className="box">
-                            <h4>AdminId: {admin.adminId}</h4>
-                            <h6>FirstName: {admin.firstName}</h6>
-                            <h6>LastName: {admin.lastName}</h6>
-                            <h6>Email: {admin.email}</h6>
-                            <h6>UserName: {admin.username}</h6>
-                            <h6>Password: {admin.password}</h6>
-                            <h6>PhoneNumber: {admin.phoneNumber}</h6>
+                    <input type="text" value={adminIdInput} onChange={handleInputChange} placeholder="Enter Username" />
+                    <button onClick={fetchAdminByUsername} className='btn btn-primary'>Submit</button>
+                    {admin.adminId !== 0 &&
+                        <div className="card">
+                            <div className="card-body">
+                                <h4 className="card-title">AdminId: {admin.adminId}</h4>
+                                <p className="card-text">FirstName: {admin.firstName}</p>
+                                <p className="card-text">LastName: {admin.lastName}</p>
+                                <p className="card-text">Email: {admin.email}</p>
+                                <p className="card-text">UserName: {admin.username}</p>
+                                <p className="card-text">Password: {admin.password}</p>
+                                <p className="card-text">PhoneNumber: {admin.phoneNumber}</p>
+                            </div>
                         </div>
                     }
                 </div>
-                    
             </section>
+
         </div>
     );
 }

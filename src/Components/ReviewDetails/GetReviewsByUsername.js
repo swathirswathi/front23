@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-function GetPaymentByUsername() {
-    const [payments, setPayments] = useState([]);
+function GetReservationByUsername() {
+    const [reviews, setReviews] = useState([]);
     const [username, setUsername] = useState('');
     const [error, setError] = useState(null);
 
@@ -16,22 +16,22 @@ function GetPaymentByUsername() {
             });
             const userId = userResponse.data.userId;
 
-            // Fetch payment details by user ID
-            const paymentResponse = await axios.get(`http://localhost:5260/api/Payment/user/admin/userId/${userId}`, {
+
+            const paymentResponse = await axios.get(`http://localhost:5260/api/Review/user/admin/userId/${userId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
-            setPayments(paymentResponse.data);
+            setReviews(paymentResponse.data);
         } catch (error) {
-            setError('Error fetching payment details');
+            setError('Error fetching review details');
         }
     };
 
     return (
         <div className='all-div'>
             <div className="heading">
-                <h3>Payment Details By UserName</h3>
+                <h3>Review Details By UserName</h3>
             </div>
             <section className="services" id="services">
                 <div className="services-container">
@@ -42,27 +42,23 @@ function GetPaymentByUsername() {
                         onChange={(e) => setUsername(e.target.value)}
                     />
                     <button onClick={fetchPaymentDetailsByUsername}>Submit</button>
-                    {payments.length > 0 ? (
+                    {reviews.length > 0 && (
                         <div className="card-container">
-                            {payments.map(payment => (
-                                <div key={payment.paymentId} className="card">
+                            {reviews.map(review => (
+                                <div key={review.reviewId} className="card">
                                     <div className="card-body">
-                                        <h4 className="card-title">PaymentId: {payment.paymentId}</h4>
-                                        <p className="card-text">PaymentMethod: {payment.paymentMethod}</p>
-                                        <p className="card-text">PaymentAmount: {payment.paymentAmount}</p>
-                                        <p className="card-text">PaymentStatus: {payment.paymentStatus}</p>
-                                        <p className="card-text">TransactionId: {payment.transactionId}</p>
-                                        <p className="card-text">TransactionDate: {payment.transactionDate}</p>
-                                        <p className="card-text">ReservationId: {payment.reservationId}</p>
-                                        <p className="card-text">UserId: {payment.userId}</p>
-                                        <p className="card-text">CarId: {payment.carId}</p>
+                                        <h4 className="card-title">ReviewId: {review.reviewId}</h4>
+                                        <p className="card-text">Rating: {review.rating}</p>
+                                        <p className="card-text">Comments: {review.comments}</p>
+                                        <p className="card-text">ReviewDate: {review.reviewDate}</p>
+                                        <p className="card-text">CarId: {review.carId}</p>
+                                        <p className="card-text">UserId: {review.userId}</p>
                                     </div>
                                 </div>
                             ))}
                         </div>
-                    ) : (
-                        <p>No payment details found</p>
                     )}
+                    {reviews.length === 0 && <p>No review details found</p>}
                     {error && <p>{error}</p>}
                 </div>
             </section>
@@ -71,4 +67,4 @@ function GetPaymentByUsername() {
     );
 }
 
-export default GetPaymentByUsername;
+export default GetReservationByUsername;

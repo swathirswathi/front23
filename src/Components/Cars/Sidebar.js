@@ -1,9 +1,7 @@
 import { useState } from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import lang from "../../Images/lang.png";
 import propic from "../../Images/propic.png";
 import phone from "../../Images/phone.png";
-import loc from "../../Images/location.png";
 import "./Cars.css";
 import img from "../../Images/11461192.png";
 import { useNavigate } from "react-router-dom";

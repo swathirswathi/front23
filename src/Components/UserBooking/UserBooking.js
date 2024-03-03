@@ -1,7 +1,6 @@
 import { useLocation } from "react-router-dom";
 import AdminNavbar from "../../Components/Admin/AdminNavbar";
 import Table from "react-bootstrap/Table";
-import { useState } from "react";
 
 function UserBookings() {
   const location = useLocation([]);

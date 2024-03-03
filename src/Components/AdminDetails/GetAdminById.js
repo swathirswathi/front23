@@ -23,16 +23,17 @@ function GetAdminById() {
         const id = adminIdInput.trim();
         if (id) {
             axios.get(`http://localhost:5260/api/Admin/admin/admins/${id}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                })
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
                 .then(res => {
                     setAdmins(res.data); // Set admins with res.data, not res
                 })
-                .catch(err => console.log(err)); //error
+                .catch(err => alert("Please enter a valid admin ID")); //error
         } else {
-            console.error("Please enter a valid admin ID");
+            alert("Please enter a valid admin ID");
+            
         }
     };
 
@@ -44,22 +45,24 @@ function GetAdminById() {
             </div>
             <section className="services" id="services">
                 <div className="services-container">
-                <input type="text" value={adminIdInput} onChange={handleInputChange} placeholder="Enter Admin ID" />
-                <button onClick={fetchAdminById} className='btn btn-primary'>Submit</button>
-                {admin.adminId !== 0 && 
-                        <div className="box">
-                            <h4>AdminId: {admin.adminId}</h4>
-                            <h6>FirstName: {admin.firstName}</h6>
-                            <h6>LastName: {admin.lastName}</h6>
-                            <h6>Email: {admin.email}</h6>
-                            <h6>UserName: {admin.username}</h6>
-                            <h6>Password: {admin.password}</h6>
-                            <h6>PhoneNumber: {admin.phoneNumber}</h6>
+                    <input type="text" value={adminIdInput} onChange={handleInputChange} placeholder="Enter Admin ID" />
+                    <button onClick={fetchAdminById} className='btn btn-primary'>Submit</button>
+                    {admin.adminId !== 0 &&
+                        <div className="card">
+                            <div className="card-body">
+                                <h4 className="card-title">AdminId: {admin.adminId}</h4>
+                                <p className="card-text">FirstName: {admin.firstName}</p>
+                                <p className="card-text">LastName: {admin.lastName}</p>
+                                <p className="card-text">Email: {admin.email}</p>
+                                <p className="card-text">UserName: {admin.username}</p>
+                                <p className="card-text">Password: {admin.password}</p>
+                                <p className="card-text">PhoneNumber: {admin.phoneNumber}</p>
+                            </div>
                         </div>
                     }
                 </div>
-                    
             </section>
+
         </div>
     );
 }
