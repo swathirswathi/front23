@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import BasicDatePicker from "../../Components/Cars/date";
 import NavScrollExample from "../../Components/Cars/Navbar";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
@@ -11,17 +10,20 @@ import "./Dashboard.css";
 import { Link } from "react-router-dom";
 
 function Dashboard() {
-  const [carData, setcarData] = useState([]);
-
+  const [carData, setCarData] = useState([]);
+  const [averageRatings, setAverageRatings] = useState({});
   const location = useLocation();
   const token = location.state;
   const navigate = useNavigate();
 
   useEffect(() => {
     if (token) {
-      (async () => await GetCarDetails())();
+      (async () => {
+        await GetCarDetails();
+      })();
     }
   }, []);
+
   async function GetCarDetails() {
     try {
       const token1 = localStorage.getItem('token');
@@ -33,14 +35,68 @@ function Dashboard() {
           },
         }
       );
-      setcarData(result.data);
+      setCarData(result.data);
+      fetchAverageRatings(result.data);
     } catch (err) {
       toast.error(err);
     }
   }
 
+  async function fetchAverageRatings(data) {
+    try {
+      const promises = data.map(async (car) => {
+        const averageRating = await getAverageRating(car.carId);
+        return { carId: car.carId, rating: averageRating };
+      });
+  
+      const ratings = await Promise.all(promises);
+      const ratingsMap = {};
+      ratings.forEach((item) => {
+        ratingsMap[item.carId] = item.rating;
+      });
+  
+      setAverageRatings(ratingsMap);
+    } catch (error) {
+      console.error("Error fetching average ratings:", error);
+    }
+  }
+
+  async function getAverageRating(carId) {
+    try {
+      const token1 = localStorage.getItem('token');
+      const response = await axios.get(
+        `http://localhost:5260/api/Review/admin/user/car/${carId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token1}`,
+          },
+        }
+      );
+      const reviews = response.data;
+      if (reviews.length === 0) return 0;
+  
+      const totalRating = reviews.reduce((acc, review) => acc + review.rating, 0);
+      const averageRating = totalRating / reviews.length;
+      return Math.ceil(averageRating);
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        return 0;
+      } else {
+        console.error("Error fetching reviews:", error);
+        return 0;
+      }
+    }
+  }
+ 
+  const renderStars = (rating) => {
+    const filledStar = '\u2B50'; // Unicode for filled star
+    const emptyStar = '\u2606'; // Unicode for empty star
+    const stars = filledStar.repeat(rating) + emptyStar.repeat(5 - rating);
+  return stars;
+  };
+
   const handleRentClick = (event, Data) => {
-    event.preventDefault(); 
+    event.preventDefault();
     if (Data.availability) {
       navigate("/reservation", {
         state: { Data: Data, username: token.username, token: token.token },
@@ -61,14 +117,19 @@ function Dashboard() {
           name: token.name ? token.name : null,
         }}
       />
-       <br/>
-      <BasicDatePicker />
+      <br />
       <ToastContainer />
+      <br /><br /><br />
+      <div style={{ textAlign: 'center' }}>
+        <h1 style={{ color: 'navy' }}>Welcome to RoadReadyRentals</h1>
+        <p style={{ color: 'navy' }}>Please Explore our services</p>
+      </div>
       <div className="cardd">
         {carData
           ? carData.map(function fn(Data) {
             return (
               <Card
+                key={Data.id} // Add key prop
                 style={{ width: "18rem", borderColor: "grey" }}
                 className="solocard"
               >
@@ -80,6 +141,7 @@ function Dashboard() {
                         "-apple-system,Helvetica Neue, Arial, sans-serif,Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol",
                     }}
                   >
+                    <p>{renderStars(averageRatings[Data.carId])}</p>
                     {Data ? Data.make + " " + Data.model : ""}
                   </Card.Title>
                   {Data ? (

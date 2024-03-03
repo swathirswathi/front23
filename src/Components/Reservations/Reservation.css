@@ -225,18 +225,84 @@
   width: 80%;
 }
 
-/* Responsive styles */
-@media (min-width: 768px) {
+
+.forthcard {
+  width: fit-content;
+  margin: auto;
+}
+
+.forthcard form {
+  width: 100%;
+}
+
+.forthcard h6 {
+  color: #333;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.forthcard label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.forthcard select,
+.forthcard textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.forthcard textarea {
+  height: 100px; 
+}
+
+.forthcard button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.forthcard button:hover {
+  background-color: #0056b3;
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
   .reserve {
-    flex-direction: row; 
-    flex-wrap: wrap; 
-    justify-content: space-between; 
+    flex-direction: column; 
   }
 
-  .secondcard {
-    width: calc(50% - 20px); 
-    margin-right: 20px;
+  .thirdcard {
+    width: 100%; 
+    margin-top: 20px;
+    clear: both;
   }
 
-  
+  .forthcard {
+    width: 100%; 
+    margin-top: 40px; 
+  } 
+}
+
+@media screen and (max-width: 767px) {
+  .reserve {
+    flex-direction: column; 
+  }
+
+  .thirdcard {
+    width: 100%; 
+    margin-top: 20px;
+    clear: both;
+  }
+
+  .forthcard {
+    width: 100%; 
+    margin-top: 40px; 
+  }
 }

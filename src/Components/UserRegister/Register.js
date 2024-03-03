@@ -41,7 +41,7 @@ function Register() {
       navigate("/userlogin");
     } catch (err) {
       alert("UserName already present!!!")
-      toast.error(err);
+      
     }
   }
 
@@ -56,6 +56,7 @@ function Register() {
               <div className="card-body">
                 <h2 className="card-title text-center mb-4"> Register</h2>
                 <form>
+
                   <div className="mb-3">
                     <label htmlFor="username" className="form-label">
                       First Name
@@ -69,6 +70,7 @@ function Register() {
                       required
                     />
                   </div>
+
                   <div className="mb-3">
                     <label htmlFor="username" className="form-label">
                       Last Name
@@ -82,6 +84,7 @@ function Register() {
                       required
                     />
                   </div>
+
                   <div className="mb-3">
                     <label htmlFor="username" className="form-label">
                       Email
@@ -95,6 +98,7 @@ function Register() {
                       required
                     />
                   </div>
+
                   <div className="mb-3">
                     <label htmlFor="username" className="form-label">
                       Phone
@@ -108,6 +112,7 @@ function Register() {
                       required
                     />
                   </div>
+
                   <div className="mb-3">
                     <label htmlFor="username" className="form-label">
                       Username
@@ -121,6 +126,7 @@ function Register() {
                       required
                     />
                   </div>
+
                   <div className="mb-3">
                     <label htmlFor="password" className="form-label">
                       Password
@@ -149,6 +155,7 @@ function Register() {
                       required
                     />
                   </div>
+
                   <div className="toggle">
                     <input
                       type="checkbox"
@@ -163,6 +170,7 @@ function Register() {
                       Show Password
                     </label>
                   </div>
+
                   <span className="gmail">Register using Gmail</span>
                   <span className="google">
                     <GoogleLogin
@@ -170,17 +178,17 @@ function Register() {
                         const decoded = jwtDecode(
                           credentialResponse?.credential
                         );
-                        console.log(decoded);
                         setemail(decoded.email);
                         setfirstname(decoded.name);
                         setUsername(decoded.email);
                         AddUser();
                       }}
                       onError={() => {
-                        console.log("Login Failed");
+                        alert("Login Failed");   
                       }}
                     />
                   </span><br></br>
+
                   <button
                     type="button"
                     className="btn btn-primary w-100"
@@ -189,6 +197,7 @@ function Register() {
                   >
                     {loading ? "Submit..." : "Submit"}
                   </button>
+                  
                 </form>
               </div>
             </div>

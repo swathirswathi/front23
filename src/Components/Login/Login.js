@@ -21,6 +21,7 @@ function Login(props) {
   const [token, setToken] = useState(
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJ2aWduZXNoMzQ1Iiwicm9sZSI6ImFkbWluIiwibmJmIjoxNzA4ODI1NzA3LCJleHAiOjE3MDg5MTIxMDcsImlhdCI6MTcwODgyNTcwN30.6JKSVE94yHVfCvHCO2mRNownfWmKgLTGWO7x3fZA57o"
   );
+
   const [adminId, setAdminId] = useState(null);
   const navigate = useNavigate();
 
@@ -29,7 +30,7 @@ function Login(props) {
   };
 
   async function handleLogin(e) {
-    e.preventDefault();
+    e.preventDefault(); //Used to prevent default behavior of an event.
 
     try {
       const result = await axios.post("http://localhost:5260/Login", {
@@ -47,7 +48,6 @@ function Login(props) {
       navigate("/dashboard", { state: { username, token} });
     } catch (err) {
       alert("Invalid Username or Password");
-      toast.error(err);
     }
   }
 
@@ -64,9 +64,7 @@ function Login(props) {
       const { token, adminId } = result.data;
       setToken(token);
       setAdminId(adminId);
-
       localStorage.setItem('token', result.data.token);
-
       <Profile data={{ username: username, password: password }} />;
       <Reservation data={{ username: username, password: password }} />;
       setToken(result.data.token);
@@ -76,7 +74,6 @@ function Login(props) {
       navigate("/adminDashboard", { state: { username, token } });
     } catch (err) {
       alert("Invalid Username or Password ");
-      toast.error(err);
     }
   }
 
@@ -96,6 +93,7 @@ function Login(props) {
                 )}
 
                 <form>
+
                   <div className="mb-3">
                     <label htmlFor="username" className="form-label">
                       Username
@@ -110,6 +108,7 @@ function Login(props) {
                       required
                     />
                   </div>
+
                   <div className="mb-3">
                     <label htmlFor="password" className="form-label">
                       Password
@@ -123,6 +122,7 @@ function Login(props) {
                       onChange={(e) => setPassword(e.target.value)}
                       required
                     />
+
                     <div className="toggle">
                       <input
                         type="checkbox"
@@ -137,11 +137,14 @@ function Login(props) {
                         Show Password
                       </label>
                     </div>
+
                   </div>
+
                   <div className="div">
                     <span>
                       <Link to="/forgot_password">Forgot Password?</Link>
                     </span>
+
                     {props.isadmin ?(
                     <span className="newuser">
                       <Link to="/adminRegister">New Admin?</Link>
@@ -158,7 +161,6 @@ function Login(props) {
                         const decoded = jwtDecode(
                           credentialResponse?.credential
                         );
-                        console.log(decoded);
                         navigate("/dashboard", {
                           state: {
                             email: decoded.email,
@@ -169,7 +171,7 @@ function Login(props) {
                         });
                       }}
                       onError={() => {
-                        console.log("Login Failed");
+                        alert("Login Failed");
                       }}
                     />
                   </div>
@@ -194,6 +196,7 @@ function Login(props) {
                       {loading ? "Loading..." : "Login"}
                     </button>
                   )}
+                  
                 </form>
               </div>
             </div>
