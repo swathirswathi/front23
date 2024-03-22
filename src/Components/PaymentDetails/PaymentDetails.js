@@ -25,7 +25,7 @@ function PaymentDetails () {
         case 2:
           return <GetPaymentByUsername/>;
         case 3:
-          return <Link to="/adminDashboard">Back to Admin Dashboard</Link>;
+          return <Link to="/adminDashboard">Back</Link>;
         default:
           return null;
     }

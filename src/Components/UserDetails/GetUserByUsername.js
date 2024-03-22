@@ -43,7 +43,7 @@ function GetUserByUsername() {
         <div className='all-div'>
 
             <div className="heading">
-                <h3>UserDetails By Id</h3>
+                <h3>UserDetails By Username</h3>
             </div>
             <section className="services" id="services">
                 <div className="services-container">

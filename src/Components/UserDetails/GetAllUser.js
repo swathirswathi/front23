@@ -40,9 +40,9 @@ function GetAllUser() {
                 <h3>All User Details</h3>
             </div>
             <section className="services" id="services">
-                <div className="services-container">
-                    {users.map((user) =>
-                        <div key={user.userId} className="card">
+                <div className="services-container" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
+                    {users.map((user) => (
+                        <div key={user.userId} className="card" style={{ width: '300px', margin: '20px', border: '1px solid #ddd', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', transition: 'transform 0.2s ease-in-out' }}>
                             <div className="card-body">
                                 <h4 className="card-title">UserId: {user.userId}</h4>
                                 <p className="card-text">FirstName: {user.firstName}</p>
@@ -54,9 +54,11 @@ function GetAllUser() {
                                 <p className="card-text">RegistrationDate: {user.registrationDate}</p>
                             </div>
                         </div>
-                    )}
+                    ))}
                 </div>
             </section>
+
+
 
         </div>
     );

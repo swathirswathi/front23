@@ -102,10 +102,14 @@ function Profile() {
     }
   };
 
+  const handleGoBack = () => {
+    window.history.back(); // Navigate back using browser's built-in functionality
+  };
+
   return (
     <>
       <NavScrollExample />
-      <div className="profile-cont">
+      <div className="profile-cont" style={{height:"100vh"}}>
         <div className="profile-sidebar">
          
           <Card style={{ position: "relative", width: "25vw", height: "70vh", top: "100px" }}>
@@ -130,9 +134,10 @@ function Profile() {
             >
 
               <p style={{ marginLeft: "20px", marginTop: "10px" }}>Account</p>
+              <Button variant="primary" style={{ marginTop: "0px", marginLeft: "5px" }} onClick={handleGoBack}>Back</Button> {/* Back button */}
               <Link to="/" style={{ display: "flex", justifyContent: "center" }}>
-              <Button variant="primary" style={{ mt:"0px",ml: "5px" }}> Logout </Button>
-            </Link>
+                <Button variant="primary" style={{ mt: "0px", ml: "5px" }}> Logout </Button>
+              </Link>
 
             </div>
           </Card>

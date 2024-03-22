@@ -1,4 +1,4 @@
-import { Card } from "react-bootstrap";
+import { Card,  Spinner } from "react-bootstrap";
 import NavScrollExample from "../../Components/Cars/Navbar";
 import card from "../../Images/credit-card.png";
 import wallet from "../../Images/wallet.png";
@@ -21,12 +21,22 @@ function Payment() {
   const changeColor = (index) => {
     setSelectedDiv(index);
   };
+  const [loading, setLoading] = useState(false);
   
+  useEffect(() => {
+    setLoading(true);
+    // Simulate API call
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000); // Adjust this time according to your needs
+  }, []);
+
   const currentDate = new Date();
   const formattedDate = currentDate.toISOString().slice(0, 10); 
 
   const AddPayment = async () => {
     try {
+      setLoading(true);
       if (!location.state || !location.state.reservation) {
         alert("Reservation data is missing.");
         return;
@@ -50,6 +60,7 @@ function Payment() {
           Authorization: `Bearer ${token1}`,
         },
       });
+      setLoading(false);
       alert("Payment success");  
       navigate("/dashBoard", {
         state: {
@@ -66,6 +77,13 @@ function Payment() {
   return (
     <>
       <NavScrollExample />
+
+      {loading ? (
+        <div className="text-center" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', width:'100vw' }} >
+          <Spinner animation="border" variant="primary" />
+          <p>Processing payment...</p>
+        </div>
+      ) : (
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         <div
           style={{
@@ -280,6 +298,7 @@ function Payment() {
           </div>
         </Card>
       </div>
+       )}
     </>
   );
 }

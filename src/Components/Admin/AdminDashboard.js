@@ -37,58 +37,30 @@ function AdminDash() {
     <>
       <AdminNavbar />
       <br /><br /><br /><br/><br /><br />
+      <div className="container">
       <h2 style={{textAlign:"center"}}>Users</h2>
-      <Table
-        striped
-        bordered
-        hover
-        style={{
-          position: "relative",
-          marginLeft:"22px",
-          width: "80vw",
-          height:"90vh"
-        }}
-      >
-        
-        <thead>
-          <tr>
-            <th>UserID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Bookings</th>
-          </tr>
-        </thead>
-
-        {userdata
-          ? userdata.map(function fn(Data) {
-              return (
-                <tbody>
-                  <tr>
-                    <td>{Data.user ? Data.user.userId : ""}</td>
-                    <td>{Data.user ? Data.user.firstName : ""}</td>
-                    <td>{Data.user ? Data.user.lastName : ""}</td>
-                    <td>{Data.user ? Data.user.username : ""}</td>
-                    <td>{Data.user ? Data.user.email : ""}</td>
-                    <td>{Data.user ? Data.user.phoneNumber : ""}</td>
-                    <td>
-                      <Link
-                        to={{
-                          pathname: "/userbookings",
-                        }}
-                        state={Data}
-                      >
-                        <a href="#">Details</a>
-                      </Link>
-                    </td>
-                  </tr>
-                </tbody>
-              );
-            })
-          : ""}
-      </Table>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
+  {userdata ? userdata.map(function fn(Data, index) {
+    return (
+      <div key={index} className="card mx-4" style={{ width: "18rem" }}>
+        <div className="card-body">
+          <h5 className="card-title">UserID: {Data.user ? Data.user.userId : ""} </h5>
+          <p className="card-text"><strong> First Name: </strong> {Data.user ? Data.user.firstName : ""}</p>
+          <p className="card-text"><strong>Last Name: </strong> {Data.user ? Data.user.lastName : ""}</p>
+          <p className="card-text"><strong>Username: </strong>{Data.user ? Data.user.username : ""}</p>
+          <p className="card-text"><strong>Email: </strong> {Data.user ? Data.user.email : ""}</p>
+          <p className="card-text"><strong>Phone: </strong>{Data.user ? Data.user.phoneNumber : ""}</p>
+          <p className="card-text"><strong>Bookings:</strong>
+            <Link to={{ pathname: "/userbookings" }} state={Data}>
+              <a href="#">Details</a>
+            </Link>
+          </p>
+        </div>
+      </div>
+    );
+  }) : ""}
+</div>
+</div>
     </>
   );
 }

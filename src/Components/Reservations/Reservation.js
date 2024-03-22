@@ -12,12 +12,14 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./Reservation.css"
+import "./Reservation.css";
+import Spinner from 'react-bootstrap/Spinner';
 
 function Reservation() {
   const navigate = useNavigate();
   const location = useLocation();
   const data = location.state;
+  const [loading, setLoading] = useState(false);
 
   const [countries] = useState([
     { code: "hyderabad", title: "Hyderabad" },
@@ -53,7 +55,7 @@ function Reservation() {
   const [rating, setRating] = useState(0);
   const [comments, setComments] = useState('');
 
-  //Wallet an offers
+  //Wallet and offers
   const [result, setResult] = useState();
   const [res, setRes] = useState(0); // Storing trip amount
 
@@ -79,8 +81,10 @@ function Reservation() {
 
   useEffect(() => {
     (async () => {
+      setLoading(true);
       await GetUserDetails();
      fetchReviews();
+     setLoading(false);
     })();
   }, []);
 
@@ -97,6 +101,7 @@ function Reservation() {
       );
       setResult(result.data);
     } catch (err) {
+      setLoading(false);
       alert(err);
     }
   }
@@ -161,6 +166,7 @@ function Reservation() {
         alert("The car is already booked for the selected dates. Please choose different dates.");
       }
     } catch (err) {
+      setLoading(false);
       alert(err);
     }
   }
@@ -182,6 +188,7 @@ function Reservation() {
       });
       alert("Review added successfully")
     } catch (error) {
+      setLoading(false);
       alert('Error:', error);
     }
   };
@@ -202,6 +209,7 @@ function Reservation() {
         await GetUserDetailsByReview(review.userId);
       }
     } catch (error) {
+      setLoading(false);
       console.error("Error fetching reviews:", error);
     }
   };
@@ -222,6 +230,7 @@ function Reservation() {
         [userId]: result1.data.firstName + " " + result1.data.lastName,
       }));
     } catch (err) {
+      setLoading(false);
       alert(err);
     }
   }
@@ -249,7 +258,12 @@ function Reservation() {
     <>
       <NavScrollExample />
 
-
+      {loading ? ( 
+        <div className="text-center" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', width:'100vw' }}>
+          <Spinner animation="border" variant="primary" />
+          
+        </div>
+      ) : (
       <div className="reserve">
         <Card style={{
             position: "relative",
@@ -545,6 +559,7 @@ function Reservation() {
         </div>
 
       </div>
+       )}
     </>
   );
 }

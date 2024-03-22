@@ -22,7 +22,7 @@ function ReviewDetails () {
         case 1:
           return <GetReviewsByUsername />;
         case 2:
-          return <Link to="/adminDashboard">Back to Admin Dashboard</Link>;
+          return <Link to="/adminDashboard">Back</Link>;
         default:
           return null;
     }

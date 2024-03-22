@@ -286,11 +286,10 @@
 
   .forthcard {
     width: 100%; 
-    margin-top: 40px; 
+    margin-top: 20%; 
   } 
 }
-
-@media screen and (max-width: 767px) {
+@media screen and (min-width: 767px) and (max-width: 500px) {
   .reserve {
     flex-direction: column; 
   }
@@ -303,6 +302,24 @@
 
   .forthcard {
     width: 100%; 
-    margin-top: 40px; 
+    margin-top: 20%; 
+  } 
+}
+
+@media screen and (max-width: 499px) {
+  .reserve {
+    flex-direction: column; 
+  }
+
+  .thirdcard {
+    width: 100%; 
+    margin-top: 20px;
+    clear: both;
+  }
+
+  .forthcard {
+    margin-left: 0px;
+    width: 100%;
+    margin-top: 30%;
   }
 }

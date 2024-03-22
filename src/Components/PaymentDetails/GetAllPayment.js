@@ -41,9 +41,9 @@ function GetAllPayment() {
                 <h3>All Payment Details</h3>
             </div>
             <section className="services" id="services">
-                <div className="services-container">
+                <div className="services-container" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
                     {payments.map((payment) =>
-                        <div key={payment.paymentId} className="card">
+                        <div key={payment.paymentId} style={{ width: '300px', margin: '20px', border: '1px solid #ddd', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', transition: 'transform 0.2s ease-in-out' }}>
                             <div className="card-body">
                                 <h4 className="card-title">PaymentId: {payment.paymentId}</h4>
                                 <p className="card-text">PaymentMethod: {payment.paymentMethod}</p>

@@ -35,17 +35,20 @@ function GetReservationByUsername() {
             </div>
             <section className="services" id="services">
                 <div className="services-container">
-                    <input
-                        type="text"
-                        placeholder="Enter username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                    <button onClick={fetchPaymentDetailsByUsername}>Submit</button>
-                    {reviews.length > 0 && (
-                        <div className="card-container">
+                    <div style={{ marginBottom: '10px' }}>
+                        <input
+                            type="text"
+                            placeholder="Enter username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            style={{ marginRight: '10px', padding: '5px' }}
+                        />
+                        <button onClick={fetchPaymentDetailsByUsername} className='btn btn-primary'>Submit</button>
+                    </div>
+                    {reviews.length > 0 ? (
+                        <div className="card-container" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
                             {reviews.map(review => (
-                                <div key={review.reviewId} className="card">
+                                <div key={review.reviewId} className="card" style={{ width: '300px', margin: '20px', border: '1px solid #ddd', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', transition: 'transform 0.2s ease-in-out' }}>
                                     <div className="card-body">
                                         <h4 className="card-title">ReviewId: {review.reviewId}</h4>
                                         <p className="card-text">Rating: {review.rating}</p>
@@ -57,11 +60,13 @@ function GetReservationByUsername() {
                                 </div>
                             ))}
                         </div>
+                    ) : (
+                        <p>No review details found</p>
                     )}
-                    {reviews.length === 0 && <p>No review details found</p>}
                     {error && <p>{error}</p>}
                 </div>
             </section>
+
 
         </div>
     );

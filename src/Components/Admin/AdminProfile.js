@@ -103,12 +103,15 @@ function AdminProfile(props) {
       alert("Failed to update phone number");
     }
   };
-  
+
+  const handleGoBack = () => {
+    window.history.back(); // Navigate back using browser's built-in functionality
+  };
 
   return (
     <>
       <NavScrollExample />
-      <div className="profile-cont">
+      <div className="profile-cont" style={{height:"100vh"}}>
         <div className="profile-sidebar">
           <Card style={{ position: "relative", width: "25vw", height: "70vh", top: "100px" }}>
             <Card.Header style={{ backgroundColor: "white", height: "200px" }}>
@@ -127,6 +130,7 @@ function AdminProfile(props) {
             >
               <p style={{ marginLeft: "20px", marginTop: "10px" }}>Account</p>
             </div>
+            <Button variant="primary" style={{ marginLeft: "5px" }} onClick={handleGoBack}>Back</Button> {/* Back button */}
           </Card>
         </div>
         <div>
@@ -172,11 +176,11 @@ function AdminProfile(props) {
               ) : (
                 <Button variant="link" style={{marginLeft:"55px"}} onClick={handleEditPhoneNumber}>Edit Phone Number</Button>
               )}
+              
+              <Link to="/" style={{ display: "flex", justifyContent: "center" }}>
+                <Button variant="primary" style={{ ml: "5px" }}> Logout </Button>
+              </Link>
             </div>
-
-            <Link to="/" style={{ display: "flex", justifyContent: "center" }}>
-              <Button variant="primary" style={{ ml: "5px" }}> Logout </Button>
-            </Link>
 
           </Card>
         </div>

@@ -51,7 +51,7 @@ function ReservationList() {
         
         setReservations(reservations.map(reservation => {
           if (reservation.reservationId === reservationId) {
-            return { ...reservation, status: "cancelled" };
+            return { ...reservation, status: "Cancelled" };
           }
           return reservation;
         }));
@@ -62,41 +62,42 @@ function ReservationList() {
     }
   };
 
-  
+  const handleGoBack = () => {
+    window.history.back(); // Navigate back using browser's built-in functionality
+  };
 
   return (
     <div className="container">
       <h1 className="heading">Reservation List</h1>
-      <Table striped bordered hover className="table">
-        <thead>
-          <tr>
-            <th>Reservation ID</th>
-            <th>Pick Up Date & Time</th>
-            <th>Drop Off Date & Time</th>
-            <th>Pick Up Location</th>
-            <th>Drop Off Location</th>
-            <th>Status</th>
-            <th>Total Price</th>
-            <th>Cancel Reservation</th>
-          </tr>
-        </thead>
-        <tbody>
-          {reservations.map((reservation) => (
-            <tr key={reservation.reservationId}>
-              <td>{reservation.reservationId}</td>
-              <td>{reservation.pickUpDateTime}</td>
-              <td>{reservation.dropOffDateTime}</td>
-              <td>{reservation.pickUpStoreLocation}</td>
-              <td>{reservation.dropOffStoreLocation}</td>
-              <td>{reservation.status}</td>
-              <td>{reservation.totalPrice}</td>
-              <td>
-                <button className="cancel-button" onClick={() => handleCancelReservation(reservation.reservationId)}>Cancel Reservation</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+      <button className="back-button" onClick={handleGoBack}>Back</button> {/* Back button*/} 
+      <div className="row">
+        {reservations.map((reservation) => (
+          <div className="col-md-6" key={reservation.reservationId}>
+            <div className="card mb-3">
+              <div className="row g-0">
+                <div className="col-md-8">
+                  <div className="card-body">
+                    <h5 className="card-title">Reservation ID: {reservation.reservationId}</h5>
+                    <p className="card-text">Pick Up Date & Time: {reservation.pickUpDateTime}</p>
+                    <p className="card-text">Drop Off Date & Time: {reservation.dropOffDateTime}</p>
+                    <p className="card-text">Pick Up Location: {reservation.pickUpStoreLocation}</p>
+                    <p className="card-text">Drop Off Location: {reservation.dropOffStoreLocation}</p>
+                    <p className="card-text">Status: {reservation.status}</p>
+                    <p className="card-text">Total Price: {reservation.totalPrice}</p>
+                    <p className="card-text">
+                      {reservation.status !== "Cancelled" ? (
+                        <button className="cancel-button" onClick={() => handleCancelReservation(reservation.reservationId)}>Cancel Reservation</button>
+                      ) : (
+                        <button className="cancel-button" disabled>Cancelled</button>
+                      )}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

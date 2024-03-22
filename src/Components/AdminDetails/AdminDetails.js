@@ -58,7 +58,7 @@ function AdminDetailsPage ({ token }) {
             case 3:
                 return <DeleteAdmin token={token} />;
             case 4:
-                return <Link to="/adminDashboard">Back to Admin Dashboard</Link>;    
+                return <Link to="/adminDashboard">Back</Link>;    
             default:
                 return null;
         }

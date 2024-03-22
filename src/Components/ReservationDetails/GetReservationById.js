@@ -49,10 +49,12 @@ function GetReservationById() {
             </div>
             <section className="services" id="services">
                 <div className="services-container">
-                    <input type="text" value={adminIdInput} onChange={handleInputChange} placeholder="Enter Reservation ID" />
-                    <button onClick={fetchReservationById} className='btn btn-primary'>Submit</button>
-                    {reservation.reservationId !== 0 &&
-                        <div className="card">
+                    <div style={{ marginBottom: '10px' }}>
+                        <input type="text" value={adminIdInput} onChange={handleInputChange} placeholder="Enter Reservation ID" style={{ marginRight: '10px' }} />
+                        <button onClick={fetchReservationById} className='btn btn-primary'>Submit</button>
+                    </div>
+                    {reservation.reservationId !== 0 && (
+                        <div className="card" style={{ border: '1px solid #ddd', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', transition: 'transform 0.2s ease-in-out' }}>
                             <div className="card-body">
                                 <h4 className="card-title">ReservationId: {reservation.reservationId}</h4>
                                 <p className="card-text">PickUpDateTime: {reservation.pickUpDateTime}</p>
@@ -66,9 +68,10 @@ function GetReservationById() {
                                 <p className="card-text">CarId: {reservation.carId}</p>
                             </div>
                         </div>
-                    }
+                    )}
                 </div>
             </section>
+
 
         </div>
     );

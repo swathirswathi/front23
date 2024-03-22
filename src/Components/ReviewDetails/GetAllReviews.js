@@ -39,8 +39,8 @@ function GetAllReviews() {
             </div>
             <section className="services" id="services">
                 <div className="services-container">
-                    {reviews.map((review) =>
-                        <div key={review.reviewId} className="card">
+                    {reviews.map((review) => (
+                        <div key={review.reviewId} className="card" style={{ border: '1px solid #ddd', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', marginBottom: '20px' }}>
                             <div className="card-body">
                                 <h4 className="card-title">ReviewId: {review.reviewId}</h4>
                                 <p className="card-text">Rating: {review.rating}</p>
@@ -50,9 +50,10 @@ function GetAllReviews() {
                                 <p className="card-text">UserId: {review.userId}</p>
                             </div>
                         </div>
-                    )}
+                    ))}
                 </div>
             </section>
+
 
         </div>
     );

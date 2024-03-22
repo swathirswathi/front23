@@ -8,10 +8,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "./Dashboard.css";
 import { Link } from "react-router-dom";
+import Spinner from 'react-bootstrap/Spinner';
 
 function Dashboard() {
   const [carData, setCarData] = useState([]);
   const [averageRatings, setAverageRatings] = useState({});
+  const [loading, setLoading] = useState(false);
   const location = useLocation();
   const token = location.state;
   const navigate = useNavigate();
@@ -19,7 +21,9 @@ function Dashboard() {
   useEffect(() => {
     if (token) {
       (async () => {
+        setLoading(true);
         await GetCarDetails();
+        setLoading(false);
       })();
     }
   }, []);
@@ -38,6 +42,7 @@ function Dashboard() {
       setCarData(result.data);
       fetchAverageRatings(result.data);
     } catch (err) {
+      setLoading(false);
       toast.error(err);
     }
   }
@@ -57,6 +62,7 @@ function Dashboard() {
       setAverageRatings(ratingsMap);
 
     } catch (error) {
+      setLoading(false);
       console.error("Error fetching average ratings:", error);
     }
   }
@@ -79,6 +85,7 @@ function Dashboard() {
       const averageRating = totalRating / reviews.length;
       return Math.ceil(averageRating);
     } catch (error) {
+      setLoading(false);
       if (error.response && error.response.status === 404) {
         return 0;
       } else {
@@ -128,9 +135,15 @@ function Dashboard() {
         <p style={{ color: 'navy' }}>Please Explore our services</p>
       </div>
 
-      <div className="cardd">
-        {carData
-          ? carData.map(function fn(Data) {
+      <div className="cardd mx-5" >
+        {loading ? (
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', width:'100vw' }}>
+          <Spinner animation="border" role="status">
+            <span className="sr-only"></span>
+          </Spinner>
+        </div>
+        ) : (
+          carData.map(function fn(Data) {
             return (
               <Card key={Data.id} /* Add key prop*/ style={{ width: "18rem", borderColor: "grey" }}className="solocard">
                 <Card.Img variant="top" src={Data ? Data.imageURL : logo} />
@@ -187,7 +200,7 @@ function Dashboard() {
               </Card>
             );
           })
-          : ""}
+        )}
       </div>
     </>
   );

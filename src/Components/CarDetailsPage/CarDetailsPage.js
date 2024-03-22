@@ -37,7 +37,7 @@ function AdminDetailsPage () {
         case 6:
           return <UpdateAvailability/>;
         case 7:
-          return <Link to="/adminDashboard">Back to Admin Dashboard</Link>;
+          return <Link to="/adminDashboard">Back</Link>;
         default:
           return null;
     }

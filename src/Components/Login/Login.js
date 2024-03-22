@@ -31,7 +31,6 @@ function Login(props) {
 
   async function handleLogin(e) {
     e.preventDefault(); //Used to prevent default behavior of an event.
-
     try {
       const result = await axios.post("http://localhost:5260/Login", {
         username: username,
@@ -53,7 +52,6 @@ function Login(props) {
 
   async function AdminLogin(e) {
     e.preventDefault();
-
     try {
       const result = await axios.post("http://localhost:5260/Login", {
         username: username,
@@ -155,6 +153,7 @@ function Login(props) {
                     )}
 
                   </div>
+                  
                   <div className="usergmail">
                     <GoogleLogin
                       onSuccess={(credentialResponse) => {

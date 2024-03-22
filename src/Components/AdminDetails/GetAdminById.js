@@ -33,7 +33,7 @@ function GetAdminById() {
                 .catch(err => alert("Please enter a valid admin ID")); //error
         } else {
             alert("Please enter a valid admin ID");
-            
+
         }
     };
 
@@ -44,19 +44,21 @@ function GetAdminById() {
                 <h3>Admin Details By Id</h3>
             </div>
             <section className="services" id="services">
-                <div className="services-container">
-                    <input type="text" value={adminIdInput} onChange={handleInputChange} placeholder="Enter Admin ID" />
-                    <button onClick={fetchAdminById} className='btn btn-primary'>Submit</button>
+                <div className="services-container" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
+                    <div style={{ width: '300px', margin: '20px' }}>
+                        <input type="text" value={adminIdInput} onChange={handleInputChange} placeholder="Enter Admin ID" style={{ marginBottom: '10px', padding: '5px' }} />
+                        <button onClick={fetchAdminById} className='btn btn-primary'>Submit</button>
+                    </div>
                     {admin.adminId !== 0 &&
-                        <div className="card">
-                            <div className="card-body">
-                                <h4 className="card-title">AdminId: {admin.adminId}</h4>
-                                <p className="card-text">FirstName: {admin.firstName}</p>
-                                <p className="card-text">LastName: {admin.lastName}</p>
-                                <p className="card-text">Email: {admin.email}</p>
-                                <p className="card-text">UserName: {admin.username}</p>
-                                <p className="card-text">Password: {admin.password}</p>
-                                <p className="card-text">PhoneNumber: {admin.phoneNumber}</p>
+                        <div style={{ width: '300px', margin: '20px', border: '1px solid #ddd', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', transition: 'transform 0.2s ease-in-out' }}>
+                            <div style={{ padding: '16px' }}>
+                                <h4 style={{ margin: '8px 0' }}>AdminId: {admin.adminId}</h4>
+                                <h6 style={{ margin: '8px 0' }}>FirstName: {admin.firstName}</h6>
+                                <h6 style={{ margin: '8px 0' }}>LastName: {admin.lastName}</h6>
+                                <h6 style={{ margin: '8px 0' }}>Email: {admin.email}</h6>
+                                <h6 style={{ margin: '8px 0' }}>UserName: {admin.username}</h6>
+                                <h6 style={{ margin: '8px 0' }}>Password: {admin.password}</h6>
+                                <h6 style={{ margin: '8px 0' }}>PhoneNumber: {admin.phoneNumber}</h6>
                             </div>
                         </div>
                     }

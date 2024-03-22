@@ -42,9 +42,9 @@ function GetAllReservation() {
                 <h3>All Reservation Details</h3>
             </div>
             <section className="services" id="services">
-                <div className="services-container">
+                <div className="services-container" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
                     {reservations.map((reservation) =>
-                        <div key={reservation.reservationId} className="card">
+                        <div key={reservation.reservationId} style={{ width: '300px', margin: '20px', border: '1px solid #ddd', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', transition: 'transform 0.2s ease-in-out' }}>
                             <div className="card-body">
                                 <h4 className="card-title">ReservationId: {reservation.reservationId}</h4>
                                 <p className="card-text">PickUpDateTime: {reservation.pickUpDateTime}</p>
@@ -61,6 +61,7 @@ function GetAllReservation() {
                     )}
                 </div>
             </section>
+
 
         </div>
     );
