@@ -9,7 +9,7 @@ import GetReviewsByUsername from './GetReviewsByUsername';
 function ReviewDetails () {
     const [selectedButton, setSelectedButton] = useState(null);
 
-  const buttons = [ 'Get All Reviews','Get Reviews By Username', 'Back'];
+  const buttons = [ 'Get All Reviews','Get Reviews By Username'];
 
   const handleButtonClick = (index) => {
     setSelectedButton(index);
@@ -21,8 +21,6 @@ function ReviewDetails () {
           return <GetAllReviews />;
         case 1:
           return <GetReviewsByUsername />;
-        case 2:
-          return <Link to="/adminDashboard">Back</Link>;
         default:
           return null;
     }
@@ -32,7 +30,8 @@ function ReviewDetails () {
     <>
     <MainNav/>
     <div className="app-container1">
-      <h3>Review Details</h3>
+    <button type="button" class="btn btn-primary" style={{paddingTop:'60px'}} onClick={() => window.history.back()}>Back</button>
+      <h3 style={{ textAlign: 'center'}}>Review Details</h3>
       <div className="button-container1">
         {buttons.map((button, index) => (
           <button

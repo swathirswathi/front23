@@ -21,7 +21,7 @@ function Login(props) {
   const [token, setToken] = useState(
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJ2aWduZXNoMzQ1Iiwicm9sZSI6ImFkbWluIiwibmJmIjoxNzA4ODI1NzA3LCJleHAiOjE3MDg5MTIxMDcsImlhdCI6MTcwODgyNTcwN30.6JKSVE94yHVfCvHCO2mRNownfWmKgLTGWO7x3fZA57o"
   );
-
+  
   const [adminId, setAdminId] = useState(null);
   const navigate = useNavigate();
 
@@ -39,7 +39,7 @@ function Login(props) {
         token: "string",
       });
       localStorage.setItem('token', result.data.token);
-      <Profile data={{ username: username, password: password }} />;
+      <Profile data={{ username: username, password: password}} />;
       setToken(result.data.token);
       toast.success("Login Success");
       setLoading(true);

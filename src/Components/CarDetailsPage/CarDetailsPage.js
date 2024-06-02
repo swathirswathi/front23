@@ -14,7 +14,7 @@ import "./CarDetails.css";
 function AdminDetailsPage () {
     const [selectedButton, setSelectedButton] = useState(null);
 
-  const buttons = [ 'Get All Car', 'Get Car By Id', 'Get Available Car', 'Delete Car','AddCar','UpdateCarDailyRate', 'UpdateAvailability','Back'];
+  const buttons = [ 'Get All Car', 'Get Car By Id', 'Get Available Car', 'Delete Car','AddCar','UpdateCarDailyRate', 'UpdateAvailability'];
 
   const handleButtonClick = (index) => {
     setSelectedButton(index);
@@ -36,8 +36,6 @@ function AdminDetailsPage () {
           return <UpdateDailyRate/>;
         case 6:
           return <UpdateAvailability/>;
-        case 7:
-          return <Link to="/adminDashboard">Back</Link>;
         default:
           return null;
     }
@@ -47,7 +45,8 @@ function AdminDetailsPage () {
     <>
     <MainNav/>
     <div className="app-container1">
-      <h3>Admin Details</h3>
+    <button type="button" class="btn btn-primary" style={{paddingTop:'60px'}} onClick={() => window.history.back()}>Back</button>
+                <h3 style={{textAlign: 'center'}}>Car Details</h3>
       <div className="button-container1">
         {buttons.map((button, index) => (
           <button

@@ -10,7 +10,7 @@ import GetReservationByUsername from './GetReservationByUsername';
 function UserDetails () {
     const [selectedButton, setSelectedButton] = useState(null);
 
-  const buttons = [ 'Get All Reservation','Get Reservation By Id','Get Reservation By Username', 'Back'];
+  const buttons = [ 'Get All Reservation','Get Reservation By Id','Get Reservation By Username'];
 
   const handleButtonClick = (index) => {
     setSelectedButton(index);
@@ -24,8 +24,6 @@ function UserDetails () {
           return <GetReservationById />;
         case 2:
           return <GetReservationByUsername />;
-        case 3:
-          return <Link to="/adminDashboard">Back</Link>;
         default:
           return null;
     }
@@ -35,7 +33,8 @@ function UserDetails () {
     <>
     <MainNav/>
     <div className="app-container1">
-      <h3>Admin Details</h3>
+    <button type="button" class="btn btn-primary" style={{paddingTop:'60px'}} onClick={() => window.history.back()}>Back</button>
+      <h3 style={{textAlign: 'center'}}>Reservation Details</h3>
       <div className="button-container1">
         {buttons.map((button, index) => (
           <button

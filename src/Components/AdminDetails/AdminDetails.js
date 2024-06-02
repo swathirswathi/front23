@@ -11,7 +11,7 @@ import "./AdminDetails.css";
 function AdminDetailsPage ({ token }) {
     const [selectedButton, setSelectedButton] = useState(null);
 
-    const buttons = ['Get All Admin', 'Get Admin By Id', 'Get Admin By Username', 'Delete Admin', 'Back'];
+    const buttons = ['Get All Admin', 'Get Admin By Id', 'Get Admin By Username', 'Delete Admin'];
 
     const handleButtonClick = (index) => {
         setSelectedButton(index);
@@ -21,7 +21,8 @@ function AdminDetailsPage ({ token }) {
         <>
             <MainNav />
             <div className="app-container1">
-                <h3>Admin Details</h3>
+                <button type="button" class="btn btn-primary" style={{paddingTop:'60px'}} onClick={() => window.history.back()}>Back</button>
+                <h3 style={{textAlign: 'center'}}>Admin Details</h3>
                 <div className="button-container1">
                     {buttons.map((button, index) => (
                         <button
@@ -33,16 +34,7 @@ function AdminDetailsPage ({ token }) {
                         </button>
                     ))}
                 </div>
-                <div className="details-container1">
-                    {selectedButton === 5 ? (
-                        <Link to={{
-                            pathname: '/adminDashboard',
-                            state: { token: token }
-                        }}>Back to Admin Dashboard</Link>
-                    ) : (
-                        renderDetails(selectedButton, token)
-                    )}
-                </div>
+                
             </div>
         </>
     );
@@ -57,8 +49,6 @@ function AdminDetailsPage ({ token }) {
                 return <GetAdminByUsername token={token} />;
             case 3:
                 return <DeleteAdmin token={token} />;
-            case 4:
-                return <Link to="/adminDashboard">Back</Link>;    
             default:
                 return null;
         }

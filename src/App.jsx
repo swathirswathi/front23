@@ -21,6 +21,8 @@ import PaymentDetails from "./Components/PaymentDetails/PaymentDetails.js";
 import HelpSupport from "./Components/Cars/HelpSupport.js"
 import ReservationList from "./Components/Cars/ReservationList.js";
 import ReviewDetails from "./Components/ReviewDetails/ReviewDetails.js";
+import TermsOfService from "./Components/TermsOfService/TermsOfService.js";
+import PrivacyPolicy from "./Components/PrivacyPolicy/PrivacyPolicy.js";
 
 function App() {
   return (
@@ -47,6 +49,8 @@ function App() {
         <Route path="/reviewDetails" element={<ReviewDetails />} />
         <Route path="/help&support" element={<HelpSupport />} />
         <Route path="/reservationList/:userId" element={<ReservationList />} />
+        <Route path="/help&support/terms" element={<TermsOfService/>} />
+        <Route path="/help&support/privacy" element={<PrivacyPolicy/>}/>
       </Routes>
   );
 }

@@ -7,14 +7,13 @@ import NavScrollExample from "../../Components/MainNav/mainNav";
 import img from "../../Images/profile-logo.png";
 import "./Cars.css";
 
-function Profile() {
+function Profile(props) {
   const [data, setData] = useState({});
   const [showEditEmail, setShowEditEmail] = useState(false);
   const [showEditPhoneNumber, setShowEditPhoneNumber] = useState(false);
   const [editedData, setEditedData] = useState({});
   const location = useLocation();
   const toke = location.state;
-
   const [selectedDiv, setSelectedDiv] = useState(null);
 
   const changeColor = (index) => {
@@ -59,11 +58,11 @@ function Profile() {
 
   const handleSaveEmail = async () => {
     try {
-      const { userId: tokenUserId } = toke;
+      const { userId: tokenUserId, token } = toke; 
       const { email } = editedData;
-      const userId = data.userId ? data.userId : tokenUserId;
+      const userId = data.userId ? data.userId : tokenUserId; 
       await axios.put(
-        `http://localhost:5260/api/User/${userId}/update-email`,
+        `http://localhost:5260/api/User/${data.userId?data.userId:toke.userId}/update-email`,
         { userId, email },
         {
           headers: {
@@ -72,8 +71,8 @@ function Profile() {
         }
       );
       alert("Email updated successfully");
-      await getUserDetails();
-      setShowEditEmail(false);
+      await getUserDetails(); 
+      setShowEditEmail(false); 
     } catch (err) {
       alert("Failed to update email");
     }
@@ -81,13 +80,13 @@ function Profile() {
 
   const handleSavePhoneNumber = async () => {
     try {
-      const { userId: tokenUserId } = toke;
+      const { userId: tokenUserId, token } = toke;
       const { phoneNumber } = editedData;
       const userId = data.userId ? data.userId : tokenUserId;
 
       await axios.put(
-        `http://localhost:5260/api/User/${userId}/update-phone-number`,
-        { userId, phoneNumber },
+        `http://localhost:5260/api/User/${data.userId?data.userId:toke.userId}/update-phone-number`,
+        { userId, phoneNumber},
         {
           headers: {
             Authorization: `Bearer ${toke.token}`,

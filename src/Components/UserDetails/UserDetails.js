@@ -11,7 +11,7 @@ import "../../Components/AdminDetails/AdminDetails.css";
 function UserDetails () {
     const [selectedButton, setSelectedButton] = useState(null);
 
-  const buttons = [ 'Get All User', 'Get User By Id', 'Get User By Username', 'Delete User', 'Back'];
+  const buttons = [ 'Get All User', 'Get User By Id', 'Get User By Username', 'Delete User'];
 
   const handleButtonClick = (index) => {
     setSelectedButton(index);
@@ -27,8 +27,6 @@ function UserDetails () {
           return <GetUserByUsername/>;
         case 3:
           return <DeleteUser/>;
-        case 4:
-          return <Link to="/adminDashboard">Back</Link>;
         default:
           return null;
     }
@@ -38,7 +36,9 @@ function UserDetails () {
     <>
     <MainNav/>
     <div className="app-container1">
-      <h3>Admin Details</h3>
+    <button type="button" class="btn btn-primary" style={{paddingTop:'60px'}} onClick={() => window.history.back()}>Back</button>
+      <h3 style={{ textAlign: 'center'}}>User Details</h3>
+      
       <div className="button-container1">
         {buttons.map((button, index) => (
           <button

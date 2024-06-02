@@ -11,14 +11,14 @@ import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 
 function AdminProfile(props) {
-  const [data, setcarData] = useState([]);
+  const [data, setcarData] = useState({});
   const [editedData, setEditedData] = useState({});
   const location = useLocation();
   const toke = location.state;
 
   const [selectedDiv, setSelectedDiv] = useState(null);
-  const [showEditEmail, setShowEditEmail] = useState(false);
-  const [showEditPhoneNumber, setShowEditPhoneNumber] = useState(false);
+  const [editEmail, setEditEmail] = useState(false);
+  const [editPhoneNumber, setEditPhoneNumber] = useState(false);
 
   const changeColor = (index) => {
     setSelectedDiv(index);
@@ -46,11 +46,13 @@ function AdminProfile(props) {
   }
 
   const handleEditEmail = () => {
-    setShowEditEmail(true);
+    setEditEmail(true);
+    setEditedData({ ...editedData, email: data.email });
   };
 
   const handleEditPhoneNumber = () => {
-    setShowEditPhoneNumber(true);
+    setEditPhoneNumber(true);
+    setEditedData({ ...editedData, phoneNumber: data.phoneNumber });
   };
 
   const handleEditChange = (e) => {
@@ -60,12 +62,12 @@ function AdminProfile(props) {
 
   const handleSaveEmail = async () => {
     try {
-      const { adminId: tokenAdminId, token } = toke; // Rename adminId to tokenAdminId
+      const { adminId: tokenAdminId } = toke; // Rename adminId to tokenAdminId
       const { email } = editedData;
       const adminId = data.adminId ? data.adminId : tokenAdminId; // Use tokenAdminId here
       const token1 = localStorage.getItem('token');
       await axios.put(
-        `http://localhost:5260/api/Admin/${data.adminId?data.adminId:toke.adminId}/update-email`,
+        `http://localhost:5260/api/Admin/${adminId}/update-email`,
         { adminId, email },
         {
           headers: {
@@ -75,7 +77,7 @@ function AdminProfile(props) {
       );
       alert("Email updated successfully");
       await getUserDetails(); 
-      setShowEditEmail(false); 
+      setEditEmail(false); 
     } catch (err) {
       alert("Failed to update email");
     }
@@ -83,13 +85,13 @@ function AdminProfile(props) {
 
   const handleSavePhoneNumber = async () => {
     try {
-      const { adminId: tokenAdminId, token } = toke;
+      const { adminId: tokenAdminId } = toke;
       const { phoneNumber } = editedData;
       const adminId = data.adminId ? data.adminId : tokenAdminId;
       const token1 = localStorage.getItem('token');
       await axios.put(
-        `http://localhost:5260/api/Admin/${data.adminId?data.adminId:toke.adminId}/update-phone-number`,
-        { adminId, phoneNumber},
+        `http://localhost:5260/api/Admin/${adminId}/update-phone-number`,
+        { adminId, phoneNumber },
         {
           headers: {
             Authorization: `Bearer ${token1}`,
@@ -98,7 +100,7 @@ function AdminProfile(props) {
       );
       alert("Phone number updated successfully");
       await getUserDetails();
-      setShowEditPhoneNumber(false);
+      setEditPhoneNumber(false);
     } catch (err) {
       alert("Failed to update phone number");
     }
@@ -147,7 +149,7 @@ function AdminProfile(props) {
             </div>
             <div style={{ position: "relative", textAlign: "center", bottom: "130px" }}>
               <p style={{marginLeft:"95px"}}>Email : {data.email ? data.email : toke.email}</p>
-              {showEditEmail ? (
+              {editEmail ? (
                 <>
                   <input
                     type="text"
@@ -161,8 +163,8 @@ function AdminProfile(props) {
               ) : (
                 <Button style={{marginLeft:"55px"}} variant="link" onClick={handleEditEmail}>Edit Email</Button>
               )}
-              <p style={{marginLeft:"55px"}}>Mobile : {data.phoneNumber ? data.phoneNumber : "None"}</p>
-              {showEditPhoneNumber ? (
+              <p style={{marginLeft:"55px"}} name="phoneNumber">Mobile : {data.phoneNumber ? data.phoneNumber : "None"}</p>
+              {editPhoneNumber ? (
                 <>
                   <input
                     type="text"

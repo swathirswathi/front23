@@ -13,9 +13,12 @@ function UserBookings() {
   return (
     <>
       <AdminNavbar />
+      
       <div className="d-flex justify-content-center" style={{marginTop:"30px"}}>
         {data && (
           <Card style={{ maxWidth: "75rem", margin: "50px auto" }}>
+            {/* Back button */}
+            <button type="button" style={{width:'100px'}} className="btn btn-primary"   onClick={() => window.history.back()}>Back</button>
             <Row className="no-gutters">
               <Col md={4}>
                 <Card.Img

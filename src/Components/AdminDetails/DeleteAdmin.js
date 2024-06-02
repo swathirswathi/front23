@@ -22,17 +22,17 @@ function DeleteAdmin() {
                     }
                 })
                 .then(() => {
-                    setMessage('Admin deleted successfully.');
+                    alert('Admin deleted successfully.');
                     setAdminIdInput('');
                 })
                 .catch(error => {
-                    setMessage('Please enter a valid admin ID.');
+                    alert('Please enter a valid admin ID.');
                 });
             } else {
-                setMessage('Deletion canceled.');
+                alert('Deletion canceled.');
             }
         } else {
-            setMessage('Please enter a valid admin ID.');
+            alert('Please enter a valid admin ID.');
         }
     };
 

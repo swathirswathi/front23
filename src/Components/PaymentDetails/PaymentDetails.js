@@ -10,7 +10,7 @@ import GetPaymentByUsername from './GetPaymentByUsername';
 function PaymentDetails () {
     const [selectedButton, setSelectedButton] = useState(null);
 
-  const buttons = [ 'Get All Payment','GetPaymentById', 'GetPaymentByUsername','Back'];
+  const buttons = [ 'Get All Payment','GetPaymentById', 'GetPaymentByUsername'];
 
   const handleButtonClick = (index) => {
     setSelectedButton(index);
@@ -24,8 +24,6 @@ function PaymentDetails () {
           return <GetPaymentById />;
         case 2:
           return <GetPaymentByUsername/>;
-        case 3:
-          return <Link to="/adminDashboard">Back</Link>;
         default:
           return null;
     }
@@ -35,7 +33,8 @@ function PaymentDetails () {
     <>
     <MainNav/>
     <div className="app-container1">
-      <h3>Admin Details</h3>
+    <button type="button" class="btn btn-primary" style={{paddingTop:'60px'}} onClick={() => window.history.back()}>Back</button>
+      <h3 style={{textAlign: 'center'}}>Payment Details</h3>
       <div className="button-container1">
         {buttons.map((button, index) => (
           <button

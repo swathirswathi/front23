@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure Bootstrap CSS is imported
 
 function GetAdminById() {
     var [admin, setAdmins] = useState({
@@ -10,7 +11,7 @@ function GetAdminById() {
         "username": "0",
         "password": "**********",
         "phoneNumber": 0,
-    })
+    });
 
     const [adminIdInput, setAdminIdInput] = useState("");
 
@@ -30,24 +31,28 @@ function GetAdminById() {
                 .then(res => {
                     setAdmins(res.data); // Set admins with res.data, not res
                 })
-                .catch(err => alert("Please enter a valid admin ID")); //error
+                .catch(err => alert("Please enter a valid admin ID")); // error
         } else {
             alert("Please enter a valid admin ID");
-
         }
     };
 
     return (
         <div className='all-div'>
-
             <div className="heading">
                 <h3>Admin Details By Id</h3>
             </div>
             <section className="services" id="services">
-                <div className="services-container" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
-                    <div style={{ width: '300px', margin: '20px' }}>
-                        <input type="text" value={adminIdInput} onChange={handleInputChange} placeholder="Enter Admin ID" style={{ marginBottom: '10px', padding: '5px' }} />
-                        <button onClick={fetchAdminById} className='btn btn-primary'>Submit</button>
+                <div className="services-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <div style={{ width: '300px', margin: '20px', textAlign: 'center' }}>
+                        <input
+                            type="text"
+                            value={adminIdInput}
+                            onChange={handleInputChange}
+                            placeholder="Enter Admin ID"
+                            style={{ marginBottom: '10px', padding: '5px', width: '100%' }}
+                        />
+                        <button onClick={fetchAdminById} className='btn btn-primary' style={{ width: '100%' }}>Submit</button>
                     </div>
                     {admin.adminId !== 0 &&
                         <div style={{ width: '300px', margin: '20px', border: '1px solid #ddd', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', transition: 'transform 0.2s ease-in-out' }}>
@@ -64,7 +69,6 @@ function GetAdminById() {
                     }
                 </div>
             </section>
-
         </div>
     );
 }
