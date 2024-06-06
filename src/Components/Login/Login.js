@@ -154,7 +154,7 @@ function Login(props) {
 
                   </div>
                   
-                  <div className="usergmail">
+                  {/* <div className="usergmail">
                     <GoogleLogin
                       onSuccess={(credentialResponse) => {
                         const decoded = jwtDecode(
@@ -173,7 +173,7 @@ function Login(props) {
                         alert("Login Failed");
                       }}
                     />
-                  </div>
+                  </div> */}
                   <br></br>
 
                   {props.isadmin ? (

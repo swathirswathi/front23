@@ -5,8 +5,6 @@ import "./UserRegister.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import { GoogleLogin } from "@react-oauth/google";
-import { jwtDecode } from "jwt-decode";
 
 function Register() {
   const [firstname, setFirstname] = useState("");
@@ -27,42 +25,6 @@ function Register() {
   const handleFormSubmit = async () => {
     // Clear previous errors
     setErrors({});
-
-    // Basic validation checks
-    const newErrors = {};
-    if (!firstname.trim()) {
-      newErrors.firstname = "Please enter your First Name";
-    }
-
-    if (!lastname.trim()) {
-      newErrors.lastname = "Please enter your Last Name";
-    }
-
-    if (!email.trim()) {
-      newErrors.email = "Please enter your Email";
-    } else if (!validateEmail(email)) {
-      newErrors.email = "Invalid email address";
-    }
-
-    if (!phone.trim()) {
-      newErrors.phone = "Please enter your Phone";
-    } else if (!validatePhone(phone)) {
-      newErrors.phone = "Invalid phone number";
-    }
-
-    if (!username.trim()) {
-      newErrors.username = "Please enter your Username";
-    }
-
-    if (!validatePassword(password)) {
-      newErrors.password =
-        "Password must contain at least 8 characters including one uppercase letter, one lowercase letter, one number, and one special character.";
-    }
-
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
 
     // If all validation passes, proceed with form submission
     try {
@@ -85,21 +47,34 @@ function Register() {
   };
 
   const validateEmail = (email) => {
-    // Basic email validation
     const re = /\S+@\S+\.\S+/;
     return re.test(email);
   };
 
   const validatePhone = (phone) => {
-    // Basic phone number validation
     const re = /^[0-9]{10}$/;
     return re.test(phone);
   };
+
   const validatePassword = (password) => {
     const re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[a-zA-Z]).{8,}$/;
     return re.test(password);
   };
 
+  const handleInputChange = (setter, validator, fieldName) => (e) => {
+    const value = e.target.value;
+    setter(value);
+
+    const newErrors = { ...errors };
+    if (!value.trim()) {
+      newErrors[fieldName] = `Please enter your ${fieldName}`;
+    } else if (validator && !validator(value)) {
+      newErrors[fieldName] = `Invalid ${fieldName}`;
+    } else {
+      delete newErrors[fieldName];
+    }
+    setErrors(newErrors);
+  };
 
   return (
     <>
@@ -109,7 +84,7 @@ function Register() {
           <div className="col-md-6 col-lg-4">
             <div className="card">
               <div className="card-body">
-                <h2 className="card-title text-center mb-4"> Register</h2>
+                <h2 className="card-title text-center mb-4">Register</h2>
                 <form>
                   <div className="mb-3">
                     <label htmlFor="firstname" className="form-label">
@@ -117,19 +92,13 @@ function Register() {
                     </label>
                     <input
                       type="text"
-                      className={`form-control ${
-                        errors.firstname ? "is-invalid" : ""
-                      }`}
+                      className={`form-control ${errors.firstname ? "is-invalid" : ""}`}
                       placeholder="Enter your First Name"
                       value={firstname}
-                      onChange={(e) => setFirstname(e.target.value)}
+                      onChange={handleInputChange(setFirstname, null, "firstname")}
                       required
                     />
-                    {errors.firstname && (
-                      <div className="invalid-feedback">
-                        {errors.firstname}
-                      </div>
-                    )}
+                    {errors.firstname && <div className="invalid-feedback">{errors.firstname}</div>}
                   </div>
 
                   <div className="mb-3">
@@ -138,19 +107,13 @@ function Register() {
                     </label>
                     <input
                       type="text"
-                      className={`form-control ${
-                        errors.lastname ? "is-invalid" : ""
-                      }`}
+                      className={`form-control ${errors.lastname ? "is-invalid" : ""}`}
                       placeholder="Enter your Last Name"
                       value={lastname}
-                      onChange={(e) => setLastname(e.target.value)}
+                      onChange={handleInputChange(setLastname, null, "lastname")}
                       required
                     />
-                    {errors.lastname && (
-                      <div className="invalid-feedback">
-                        {errors.lastname}
-                      </div>
-                    )}
+                    {errors.lastname && <div className="invalid-feedback">{errors.lastname}</div>}
                   </div>
 
                   <div className="mb-3">
@@ -159,17 +122,13 @@ function Register() {
                     </label>
                     <input
                       type="email"
-                      className={`form-control ${
-                        errors.email ? "is-invalid" : ""
-                      }`}
+                      className={`form-control ${errors.email ? "is-invalid" : ""}`}
                       placeholder="Enter your Email"
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={handleInputChange(setEmail, validateEmail, "email")}
                       required
                     />
-                    {errors.email && (
-                      <div className="invalid-feedback">{errors.email}</div>
-                    )}
+                    {errors.email && <div className="invalid-feedback">{errors.email}</div>}
                   </div>
 
                   <div className="mb-3">
@@ -178,17 +137,13 @@ function Register() {
                     </label>
                     <input
                       type="tel"
-                      className={`form-control ${
-                        errors.phone ? "is-invalid" : ""
-                      }`}
+                      className={`form-control ${errors.phone ? "is-invalid" : ""}`}
                       placeholder="Enter your Phone"
                       value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
+                      onChange={handleInputChange(setPhone, validatePhone, "phone")}
                       required
                     />
-                    {errors.phone && (
-                      <div className="invalid-feedback">{errors.phone}</div>
-                    )}
+                    {errors.phone && <div className="invalid-feedback">{errors.phone}</div>}
                   </div>
 
                   <div className="mb-3">
@@ -197,19 +152,13 @@ function Register() {
                     </label>
                     <input
                       type="text"
-                      className={`form-control ${
-                        errors.username ? "is-invalid" : ""
-                      }`}
+                      className={`form-control ${errors.username ? "is-invalid" : ""}`}
                       placeholder="Enter your Username"
                       value={username}
-                      onChange={(e) => setUsername(e.target.value)}
+                      onChange={handleInputChange(setUsername, null, "username")}
                       required
                     />
-                    {errors.username && (
-                      <div className="invalid-feedback">
-                        {errors.username}
-                      </div>
-                    )}
+                    {errors.username && <div className="invalid-feedback">{errors.username}</div>}
                   </div>
 
                   <div className="mb-3">
@@ -218,20 +167,14 @@ function Register() {
                     </label>
                     <input
                       type={showPassword ? "text" : "password"}
-                      className={`form-control ${
-                        errors.password ? "is-invalid" : ""
-                      }`}
+                      className={`form-control ${errors.password ? "is-invalid" : ""}`}
                       placeholder="Enter your Password"
                       value={password}
-                      onChange={(e) => setPassword(e.target.value)}
+                      onChange={handleInputChange(setPassword, validatePassword, "password")}
                       autoComplete="off"
                       required
                     />
-                    {errors.password && (
-                      <div className="invalid-feedback">
-                        {errors.password}
-                      </div>
-                    )}
+                    {errors.password && <div className="invalid-feedback">{errors.password}</div>}
                   </div>
 
                   <div className="form-check mb-3">
@@ -242,10 +185,7 @@ function Register() {
                       checked={showPassword}
                       onChange={togglePasswordVisibility}
                     />
-                    <label
-                      className="form-check-label"
-                      htmlFor="showPassword"
-                    >
+                    <label className="form-check-label" htmlFor="showPassword">
                       Show Password
                     </label>
                   </div>
@@ -255,10 +195,9 @@ function Register() {
                       type="button"
                       className="btn btn-primary"
                       onClick={handleFormSubmit}
-                      >
-
-                    {loading ? "Submitting..." : "Submit"}
-                  </button>
+                    >
+                      {loading ? "Submitting..." : "Submit"}
+                    </button>
                   </div>
                 </form>
               </div>
@@ -266,6 +205,7 @@ function Register() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 }

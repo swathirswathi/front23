@@ -7,7 +7,6 @@ import GetAdminByUsername from "./GetAdminByUsername";
 import DeleteAdmin from "./DeleteAdmin";
 import "./AdminDetails.css";
 
-
 function AdminDetailsPage ({ token }) {
     const [selectedButton, setSelectedButton] = useState(null);
 
