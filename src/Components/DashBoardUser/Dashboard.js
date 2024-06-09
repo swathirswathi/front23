@@ -146,7 +146,7 @@ function Dashboard() {
           carData.map(function fn(Data) {
             return (
               <Card key={Data.id} /* Add key prop*/ style={{ width: "18rem", borderColor: "grey" }}className="solocard">
-                <Card.Img variant="top" src={Data ? Data.imageURL : logo} />
+                <Card.Img variant="top" src={ Data.imageURL} height={200} width={100} alt={Data.make}/>
                 
                 <Card.Body>
                   <Card.Title

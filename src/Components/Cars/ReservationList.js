@@ -3,6 +3,7 @@ import axios from "axios";
 import Table from "react-bootstrap/Table";
 import { useParams } from "react-router-dom";
 import "./reservationList.css";
+import back from "../../Images/Back.jpg";
 
 function ReservationList() {
   const { userId } = useParams();
@@ -68,8 +69,10 @@ function ReservationList() {
 
   return (
     <div className="container">
+      <button className="back-button" onClick={handleGoBack}>
+      <img style={{ height: "20px" }} src={back} alt="Back" />
+      </button> {/* Back button*/} 
       <h1 className="heading">Reservation List</h1>
-      <button className="back-button" onClick={handleGoBack}>Back</button> {/* Back button*/} 
       <div className="row">
         {reservations.map((reservation) => (
           <div className="col-md-6" key={reservation.reservationId}>
@@ -84,6 +87,7 @@ function ReservationList() {
                     <p className="card-text">Drop Off Location: {reservation.dropOffStoreLocation}</p>
                     <p className="card-text">Status: {reservation.status}</p>
                     <p className="card-text">Total Price: {reservation.totalPrice}</p>
+                    <p className="card-text">CarId: {reservation.carId}</p>
                     <p className="card-text">
                       {reservation.status !== "Cancelled" ? (
                         <button className="cancel-button" onClick={() => handleCancelReservation(reservation.reservationId)}>Cancel Reservation</button>

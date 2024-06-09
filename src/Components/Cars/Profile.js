@@ -6,6 +6,8 @@ import { Card, Button } from "react-bootstrap";
 import NavScrollExample from "../../Components/MainNav/mainNav";
 import img from "../../Images/profile-logo.png";
 import "./Cars.css";
+import back from "../../Images/Back.jpg";
+import { useNavigate } from "react-router-dom";
 
 function Profile(props) {
   const [data, setData] = useState({});
@@ -15,6 +17,7 @@ function Profile(props) {
   const location = useLocation();
   const toke = location.state;
   const [selectedDiv, setSelectedDiv] = useState(null);
+  const navigate = useNavigate();
 
   const changeColor = (index) => {
     setSelectedDiv(index);
@@ -112,30 +115,33 @@ function Profile(props) {
         <div className="profile-sidebar">
          
           <Card style={{ position: "relative", width: "25vw", height: "70vh", top: "100px" }}>
-            <Card.Header style={{ backgroundColor: "white", height: "200px" }}>
-             
-              <div>
-                <img style={{ height: "120px", marginTop: "10px" }} src={img} alt="img" />
+          <button
+                  type="button"
+                  className="btn btn-secondary mb-3"
+                  style={{ padding: "2px", backgroundColor: "white", width:'0px',height:'0px' }}
+                  onClick={() => navigate(-1)}
+                >
+                  <img style={{ height: "20px" }} src={back} alt="Back" />
+          </button>
+            <h2 style={{margin:'15px'}}>Profile</h2>
+            <div>
+                <img style={{ height: "140px", marginTop: "20px" }} src={img} alt="img" />
               </div>
 
-              <div style={{ marginTop: "5px" }}>
+              <div style={{ marginTop: "25px" }}>
                 <b>{data.firstName ? data.firstName : toke?.name}</b>
               </div>
 
               <div style={{ opacity: "0.8" }}>{data.email ? data.email : toke?.email}</div>
-           
-            </Card.Header>
-
             <div
               style={{ textAlign: "start", cursor: "pointer" }}
               className={selectedDiv === 0 ? "box red" : "box"}
               onClick={() => changeColor(0)}
             >
 
-              <p style={{ marginLeft: "20px", marginTop: "10px" }}>Account</p>
-              <Button variant="primary" style={{ marginTop: "0px", marginLeft: "5px" }} onClick={handleGoBack}>Back</Button> {/* Back button */}
+             
               <Link to="/" style={{ display: "flex", justifyContent: "center" }}>
-                <Button variant="primary" style={{ mt: "0px", ml: "5px" }}> Logout </Button>
+                <Button variant="primary" style={{ marginTop: "70%", ml: "5px" }}> Logout </Button>
               </Link>
 
             </div>

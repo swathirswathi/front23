@@ -62,13 +62,24 @@ function Reservation() {
   const Trip = () => {
     var months = [30, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     var Seater = data.Data.dailyRate;
+    if (start.isAfter(end)) {
+    // Display an alert message or prevent user from proceeding
+       alert("End date cannot be before the start date. Please select a valid end date.");
+    // Optionally, you can reset the end date to the start date
+       setend(start);
+    // Optionally, you can return early to prevent further execution
+       return;
+     }
+   
     if (start.$M === end.$M) {
-      setRes((end.$D - start.$D) * Seater);
-    } else {
-      var days = months[start.$M] - start.$D + end.$D;
-      setRes(days * Seater);
-    }
-  };
+    setRes((end.$D - start.$D) * Seater);
+     } else {
+    var days = months[start.$M] - start.$D + end.$D;
+    setRes(days * Seater);
+     }
+   };
+
+  
 
   //Review
   const handleRatingChange = (event) => {
@@ -111,7 +122,7 @@ function Reservation() {
     try {
       const token1 = localStorage.getItem('token');
       const reservationsResponse = await axios.get(
-        `http://localhost:5260/api/Reservation/user/Admin/ Car/${data.Data.carId}`,
+        `http://localhost:5260/api/Reservation/user/Admin/%20Car/${data.Data.carId}`,
         {
           headers: {
             Authorization: `Bearer ${token1}`,
@@ -170,7 +181,7 @@ function Reservation() {
       alert(err);
     }
   }
-
+      
  //AddReview
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -235,12 +246,13 @@ function Reservation() {
     }
   }
   
-  //Rating Stars
+
+  // Rating Stars
   const renderStars = (rating) => {
     const filledStar = '\u2B50'; // Unicode for filled star
     const emptyStar = '\u2606'; // Unicode for empty star
     const stars = filledStar.repeat(rating) + emptyStar.repeat(5 - rating);
-  return stars;
+    return stars;
   };
   const renderReviews = () => {
     return reviews.map((review, index) => (
@@ -251,9 +263,8 @@ function Reservation() {
       </div>
     ));
   };
-
   
-
+  
   return (
     <>
       <NavScrollExample />
@@ -281,7 +292,7 @@ function Reservation() {
               alt="img"
             />
           </Card.Header>
-
+          
           <div
             style={{
               marginLeft: "20px",
@@ -297,23 +308,34 @@ function Reservation() {
           <div style={{textAlign: "center", position: "relative", bottom: "20px",marginRight: "110px",}}> To </div>
          
           <div style={{ position: "relative", right: "270px", bottom: "70px" }}>
-           
-            <span className="starttime" style={{ position: "absolute", width: "200px", marginLeft: "300px", marginTop: "60px" }}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={["DateTimePicker"]}>
-                  <DateTimePicker label="Start Date" value={start} onChange={(newValue) => setstart(newValue)} format="LLL"/>
-                </DemoContainer>
-              </LocalizationProvider>
-            </span>
 
-            <span className="endtime" style={{ position: "absolute", width: "200px", marginLeft: "600px", marginTop: "60px" }}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={["DateTimePicker"]}>
-                  <DateTimePicker label="End Date" value={end} onChange={(newValue) => setend(newValue)} format="LLL"/>
-                </DemoContainer>
-              </LocalizationProvider>
-            </span>
-
+          <span className="starttime" style={{ position: "absolute", width: "200px", marginLeft: "300px", marginTop: "60px" }}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DemoContainer components={["DateTimePicker"]}>
+                    <DateTimePicker
+                      label="Start Date"
+                      value={start}
+                      minDate={dayjs().startOf('day')} // Set minimum selectable date to today's date
+                      onChange={(newValue) => setstart(newValue)}
+                      format="LLL"
+                    />
+                  </DemoContainer>
+                </LocalizationProvider>
+              </span>
+              <span className="endtime" style={{ position: "absolute", width: "200px", marginLeft: "600px", marginTop: "60px" }}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DemoContainer components={["DateTimePicker"]}>
+                    <DateTimePicker
+                      label="End Date"
+                      value={end}
+                      minDate={dayjs().startOf('day')} // Set minimum selectable date to today's date
+                      onChange={(newValue) => setend(newValue)}
+                      format="LLL"
+                    />
+                  </DemoContainer>
+                </LocalizationProvider>
+              </span>
+  
             <Button
               variant="outline-primary"
               style={{ position: "relative", top: "75px", left: "950px" }}

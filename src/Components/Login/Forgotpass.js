@@ -4,12 +4,12 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-import back from "../../Images/Back.jpg"
+import back from "../../Images/Back.jpg";
 
 function Forgot() {
   const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(false);
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState();
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
@@ -29,7 +29,8 @@ function Forgot() {
       newErrors.username = "Please enter your username";
     }
     if (!validatePassword(password)) {
-      newErrors.password = "Password must contain at least 8 characters including one uppercase letter, one lowercase letter, one number, and one special character.";
+      newErrors.password =
+        "Password must contain at least 8 characters including one uppercase letter, one lowercase letter, one number, and one special character.";
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -39,10 +40,28 @@ function Forgot() {
     }
 
     try {
-      await axios.post("http://localhost:5260/Reset_Password", {
-        username: username,
+      // Fetch user ID using the provided username
+      const token1 = localStorage.getItem('token');
+      const response = await axios.get(
+        `http://localhost:5260/api/User/user/GetUser/get/${username}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token1}`,
+          },
+        }
+      );
+      const userId = response.data.userId;
+
+      // Update password using the obtained user ID
+      const token = localStorage.getItem('token');
+      await axios.put(`http://localhost:5260/api/User/${userId}/update-password`, {
         newPassword: password,
+      },{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
+
       toast.success("Password reset successfully");
       setLoading(false);
       navigate("/userlogin");
@@ -68,7 +87,8 @@ function Forgot() {
   };
 
   const validatePassword = (password) => {
-    const re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[a-zA-Z]).{8,}$/;
+    const re =
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[a-zA-Z]).{8,}$/;
     return re.test(password);
   };
 
@@ -81,30 +101,37 @@ function Forgot() {
           <div className="col-md-6 col-lg-4">
             <div className="card">
               <div className="card-body">
-                <button 
-                  type="button" 
-                  className="btn btn-secondary mb-3" style={{padding:'2px',backgroundColor:'white'}}
+                <button
+                  type="button"
+                  className="btn btn-secondary mb-3"
+                  style={{ padding: "2px", backgroundColor: "white" }}
                   onClick={() => navigate(-1)}
                 >
-                  <img style={{height:'20px'}} src={back} alt="Back" />
+                  <img style={{ height: "20px" }} src={back} alt="Back" />
                 </button>
 
                 <h2 className="card-title text-center mb-4">Reset Password</h2>
                 <form>
                   <div className="mb-3">
                     <label htmlFor="username" className="form-label">
-                      Email
+                      Username
                     </label>
                     <input
                       type="text"
-                      className={`form-control ${errors.username ? "is-invalid" : ""}`}
+                      className={`form-control ${
+                        errors.username ? "is-invalid" : ""
+                      }`}
                       id="username"
                       placeholder="Enter your username"
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
                       required
                     />
-                    {errors.username && <div className="invalid-feedback">{errors.username}</div>}
+                    {errors.username && (
+                      <div className="invalid-feedback">
+                        {errors.username}
+                      </div>
+                    )}
                   </div>
                   <div className="mb-3">
                     <label htmlFor="password" className="form-label">
@@ -112,14 +139,24 @@ function Forgot() {
                     </label>
                     <input
                       type={showPassword ? "text" : "password"}
-                      className={`form-control ${errors.password ? "is-invalid" : ""}`}
+                      className={`form-control ${
+                        errors.password ? "is-invalid" : ""
+                      }`}
                       placeholder="Enter your Password"
                       value={password}
-                      onChange={handleInputChange(setPassword, validatePassword, "password")}
+                      onChange={handleInputChange(
+                        setPassword,
+                        validatePassword,
+                        "password"
+                      )}
                       autoComplete="off"
                       required
                     />
-                    {errors.password && <div className="invalid-feedback">{errors.password}</div>}
+                    {errors.password && (
+                      <div className="invalid-feedback">
+                        {errors.password}
+                      </div>
+                    )}
                   </div>
                   <div className="form-check mb-3">
                     <input
@@ -129,7 +166,10 @@ function Forgot() {
                       checked={showPassword}
                       onChange={togglePasswordVisibility}
                     />
-                    <label className="form-check-label" htmlFor="showPassword">
+                    <label
+                      className="form-check-label"
+                      htmlFor="showPassword"
+                    >
                       Show Password
                     </label>
                   </div>
