@@ -555,7 +555,7 @@ function Reservation() {
               <p>No reviews available</p>
             )}
               </div>
-              <h6 style={{ textAlign: "center", fontSize: "1.2rem" }}>Add Review</h6>
+              {/* <h6 style={{ textAlign: "center", fontSize: "1.2rem" }}>Add Review</h6>
               <form onSubmit={handleSubmit}>
                 
                 <div>
@@ -585,7 +585,7 @@ function Reservation() {
                 </div>
 
                 <Button type="submit">Submit Review</Button>
-              </form>
+              </form> */}
 
             </Card.Body>
 
