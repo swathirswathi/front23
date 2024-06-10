@@ -23,6 +23,7 @@ import ReservationList from "./Components/Cars/ReservationList.js";
 import ReviewDetails from "./Components/ReviewDetails/ReviewDetails.js";
 import TermsOfService from "./Components/TermsOfService/TermsOfService.js";
 import PrivacyPolicy from "./Components/PrivacyPolicy/PrivacyPolicy.js";
+import AddComment from "./Components/AddComment/AddComment.js";
 
 function App() {
   return (
@@ -51,6 +52,7 @@ function App() {
         <Route path="/reservationList/:userId" element={<ReservationList />} />
         <Route path="/help&support/terms" element={<TermsOfService/>} />
         <Route path="/help&support/privacy" element={<PrivacyPolicy/>}/>
+        <Route path="/addComment" element={<AddComment/>}/>
       </Routes>
   );
 }

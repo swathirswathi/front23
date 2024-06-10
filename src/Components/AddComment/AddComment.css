@@ -1,5 +1,5 @@
 
-  .solocard {
+.solocard {
     margin-top: 10px;
     transition: 0.3s;
   }
@@ -139,57 +139,21 @@
   .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root{
     width: 290px;
   }
-  .starttime {
-    position: absolute;
-    width: 200px;
-    margin-left: 5px;
-    margin-top: 60px;
-  }
-  .endtime{
-    position: absolute;
-    width: 300px;
-    margin-left: 305px;
-    margin-top: 60px;
-  }
+  
   .dropdown-toggle{
     position: relative;
     top: 115px;
     left: 915px;
   }
-
-
-.cardd {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
-  grid-gap: 10px;
-  margin-top: -15px;
-  padding: 0 10px;
-}
-
-
-@media screen and (min-width: 992px) {
-  .cardd {
-    grid-template-columns: repeat(4, 1fr); 
+ 
+  
+  .red {
+    background-image: linear-gradient(to right, white , rgb(202, 223, 254));
+    font-weight:500;
   }
-}
-
-
-@media screen and (min-width: 768px) and (max-width: 991px) {
-  .cardd {
-    grid-template-columns: repeat(3, 1fr); 
+ 
+  .payment{
+    display: flex;
+    flex-wrap: wrap;
   }
-}
-
-
-@media screen and (min-width: 576px) and (max-width: 767px) {
-  .cardd {
-    grid-template-columns: repeat(2, 1fr); 
-  }
-}
-@media screen and (min-width: 100px) and (max-width: 576px) {
-  .cardd {
-    grid-template-columns: repeat(1, 1fr);
-  }
-}
-
   

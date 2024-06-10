@@ -14,6 +14,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Reservation.css";
 import Spinner from 'react-bootstrap/Spinner';
+import back from "../../Images/Back.jpg";
 
 function Reservation() {
   const navigate = useNavigate();
@@ -264,17 +265,20 @@ function Reservation() {
     ));
   };
   
-  
+  const handleGoBack = () => {
+    window.history.back(); // Navigate back using browser's built-in functionality
+  };
   return (
     <>
       <NavScrollExample />
-
+      
       {loading ? ( 
         <div className="text-center" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', width:'100vw' }}>
           <Spinner animation="border" variant="primary" />
           
         </div>
       ) : (
+        
       <div className="reserve">
         <Card style={{
             position: "relative",
@@ -286,6 +290,14 @@ function Reservation() {
         >
          
           <Card.Header style={{ height: "400px" }}>
+          <button
+                  type="button"
+                  className="btn btn-secondary mb-3"
+                  style={{ padding: "2px", backgroundColor: "white",float:'left' }}
+                  onClick={() => navigate(-1)}
+                >
+                  <img style={{ height: "20px" }} src={back} alt="Back" />
+                </button>
             <img
               style={{ height: "380px", marginLeft: "40px" }}
               src={data.Data.imageURL}

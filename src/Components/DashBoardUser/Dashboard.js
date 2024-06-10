@@ -172,6 +172,7 @@ function Dashboard() {
 
                       <p
                         style={{ fontFamily: "-apple-system,Helvetica Neue, Arial, sans-serif,Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol",
+                        marginTop:'-10px'
                         }}
                       >
                         Available :{Data.availability ? "Yes" : "No"}
@@ -191,6 +192,7 @@ function Dashboard() {
                   >
                     <Button
                       variant="primary"
+                      style={{marginTop:'-10px'}}
                       onClick={(event) => handleRentClick(event, Data)}
                     >
                       Rent
